@@ -1,0 +1,13 @@
+body {
+	background: #eee;
+	background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+	padding: 0 16px;
+	font-family: 'Roboto', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-weight: 400;
+	color: #64635f;
+	position: relative;
+	overflow: visible;
+	height: 100%;
+}
