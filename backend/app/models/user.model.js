@@ -12,6 +12,12 @@ const User = mongoose.model(
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Role"
             }
+        ],
+        accounts: [
+            {
+                name: String,
+                balance: Number
+            }
         ]
     })
 );
