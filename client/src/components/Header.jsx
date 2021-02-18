@@ -18,9 +18,12 @@ const Header = () => {
 						<div
 							className="profile_email"
 							style={{ zIndex: 1, overflow: 'hidden' }}
+							onMouseOver={event => {
+								// event.target.style.textDecoration = 'underline';
+							}}
 						>
 							email@gmail.com
-							<span className="header__link-spacer"></span>
+							{/* <div class="underbar"></div> */}
 						</div>
 						<div className="header_dropdown-menu profile-dropdown-menu">
 							<AccountCircleIcon fontSize="large" />

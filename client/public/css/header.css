@@ -1,8 +1,8 @@
 header {
 	background-color: #fff;
 	box-shadow: 0 2px 9px rgb(0 0 0 / 13%);
-	margin: auto -16px;
-	padding: 16px 32px;
+	margin: -10px -23px;
+	padding: 0 100px;
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 	position: relative;
 	height: 98px;
@@ -102,19 +102,6 @@ header {
 	box-shadow: 2px 2px 9px rgb(0 0 0 / 13%);
 } */
 
-.header_profile .header__link-spacer {
-	display: block;
-	background-color: #434343;
-	width: 100%;
-	height: 1px;
-	position: relative;
-	left: -100%;
-	opacity: 0;
-	z-index: -1;
-	bottom: 10px;
-	transition: all 0.5s ease;
-}
-
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
 	.header_title,
 	.header_logo {
@@ -132,4 +119,17 @@ header {
 	.header_container {
 		padding: 0 35px;
 	}
+}
+
+.underbar {
+	display: block;
+	width: 100%;
+	height: 1px;
+	background-color: #434343;
+	position: relative;
+	/* left: -100%; */
+	/* opacity: 0; */
+	/* z-index: -1; */
+	bottom: 10px;
+	transition: all 0.5s ease;
 }
