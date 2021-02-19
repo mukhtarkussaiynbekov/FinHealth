@@ -2,7 +2,7 @@ import React from 'react';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-const Header = () => {
+const FinHealthHeader = () => {
 	return (
 		<header>
 			<div className="header_container">
@@ -35,4 +35,4 @@ const Header = () => {
 	);
 };
 
-export default Header;
+export default FinHealthHeader;
