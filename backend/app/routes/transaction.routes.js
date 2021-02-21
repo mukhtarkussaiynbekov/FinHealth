@@ -10,8 +10,13 @@ module.exports = function(app) {
         next();
     });
 
-    app.post("/transaction",[authJwt.verifyToken], createTransaction);
+    app.post("/transaction", [authJwt.verifyToken], createTransaction);
+    /* Experimental feature
+    
     app.delete("/transaction", [authJwt.verifyToken], deleteTransaction);
+    
+    */
+
     app.get("/transaction", [authJwt.verifyToken], getAllTransactions);
     
 

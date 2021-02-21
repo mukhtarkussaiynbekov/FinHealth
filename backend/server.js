@@ -58,6 +58,7 @@ function initializeRoles() {
 
 require('./app/routes/auth.routes')(app);
 require('./app/routes/transaction.routes')(app);
+require('./app/routes/category.routes')(app);
 require('./app/routes/account.routes')(app);
 require('./app/routes/test')(app);
 const PORT = process.env.PORT || 8080;

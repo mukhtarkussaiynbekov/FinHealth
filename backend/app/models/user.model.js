@@ -18,6 +18,13 @@ const User = mongoose.model(
                 name: String,
                 balance: Number
             }
+        ],
+        categories: [
+            {
+                name: String,
+                balance: Number,
+                budget: Number
+            }
         ]
     })
 );

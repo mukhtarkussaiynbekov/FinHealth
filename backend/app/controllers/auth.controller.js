@@ -93,12 +93,16 @@ User.findOne({
 
     var authorities = [];
     var accounts = [];
+    var categories = [];
     for (let i = 0; i < user.roles.length; i++) {
         authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
     }
     for (let i = 0; i < user.accounts.length; i++) {
         accounts.push({ name: user.accounts[i].name, balance: user.accounts[i].balance });
     }
+    for (let i = 0; i < user.categories.length; i++) {
+        categories.push({ name: user.categories[i].name, balance: user.categories[i].balance, budget: user.categories[i].budget });
+    }   
     res.status(200).send({
         id: user._id,
         first: user.first,
@@ -106,6 +110,7 @@ User.findOne({
         email: user.email,
         roles: authorities,
         accounts: accounts,
+        categories: categories,
         accessToken: token
     });
     });
