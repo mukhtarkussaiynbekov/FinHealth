@@ -76,9 +76,18 @@ const deleteTransaction = (req, res) => {
 }
 
 const getAllTransactions = (req, res) => {
-    Transaction.find({
-        owner: req.userId
-        },
+    const ctg = req.query.category;
+    const acc = req.query.account;
+    let condition = {};
+    condition.owner = req.userId;
+    if (ctg) {
+        condition.category = ctg;
+    }
+    if (acc) {
+        condition.account = acc;
+    }
+    Transaction.find(
+        condition,
         {
             owner: 0,
             _id: 0
