@@ -1,5 +1,5 @@
 body {
-	background: #eee;
+	background-color: #ffffff;
 	background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
 	padding: 0 16px;
 	font-family: 'Roboto', sans-serif;
@@ -10,4 +10,8 @@ body {
 	position: relative;
 	overflow: visible;
 	height: 100%;
+}
+
+.data-container {
+	margin-top: 20px;
 }

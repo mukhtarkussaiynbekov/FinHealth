@@ -1,18 +1,19 @@
 import React from 'react';
 import FinHealthHeader from './FinHealthHeader';
-import Account from './Accounts/Account';
-import Transaction from './Transactions/Transaction';
+import Accounts from './Accounts/Accounts';
+import Transactions from './Transactions/Transactions';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
 	return (
 		<div>
 			<FinHealthHeader />
-			<div className="row">
+			<div className="row data-container">
 				<div className="col-6">
-					<Account />
+					<Accounts />
 				</div>
 				<div className="col-6">
-					<Transaction />
+					<Transactions />
 				</div>
 			</div>
 		</div>

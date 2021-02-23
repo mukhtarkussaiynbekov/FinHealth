@@ -2,7 +2,7 @@ import React from 'react';
 
 const Transaction = () => {
 	return (
-		<div>
+		<div className="transactions-container">
 			<p>Transaction component</p>
 		</div>
 	);
