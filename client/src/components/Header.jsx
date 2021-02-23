@@ -3,6 +3,7 @@ import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const Header = () => {
+	console.log(this);
 	return (
 		<header>
 			<div className="header_container">
@@ -22,7 +23,7 @@ const Header = () => {
 								// event.target.style.textDecoration = 'underline';
 							}}
 						>
-							email@gmail.com
+							HOW TO PASS ARGUMENT
 							{/* <div class="underbar"></div> */}
 						</div>
 						<div className="header_dropdown-menu profile-dropdown-menu">
