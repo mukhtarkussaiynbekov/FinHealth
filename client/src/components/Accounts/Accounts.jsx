@@ -1,9 +1,11 @@
 import React from 'react';
+import Header from './Header';
 
 const Account = () => {
 	return (
 		<div className="accounts-container">
-			<p>Account component</p>
+			<Header />
+			{/* <p>Account component</p> */}
 		</div>
 	);
 };
