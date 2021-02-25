@@ -4,7 +4,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const FinHealthHeader = () => {
 	return (
-		<header>
+		<header className="header">
 			<div className="header_container">
 				<div className="header_left">
 					<MonetizationOnIcon

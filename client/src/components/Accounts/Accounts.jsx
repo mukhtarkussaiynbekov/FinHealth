@@ -1,13 +1,14 @@
 import React from 'react';
 import Header from './Header';
+import Body from './Body';
 
-const Account = () => {
+const Accounts = () => {
 	return (
 		<div className="accounts-container">
 			<Header />
-			{/* <p>Account component</p> */}
+			<Body />
 		</div>
 	);
 };
 
-export default Account;
+export default Accounts;

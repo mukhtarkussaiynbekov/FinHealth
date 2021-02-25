@@ -1,10 +1,9 @@
 body {
-	background-color: #ffffff;
+	background-color: #efefec;
 	background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
 	padding: 0 16px;
 	font-family: 'Roboto', sans-serif;
 	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
 	font-weight: 400;
 	color: #64635f;
 	position: relative;
@@ -14,6 +13,26 @@ body {
 
 .data-container {
 	margin-top: 20px;
+	margin: auto;
+	max-width: 1280px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.container-dashboard {
+	padding: 30px 25px 90px;
+	position: relative;
+	display: block;
+}
+
+.dashboard {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
 }
 
 .dashboard-body {
@@ -23,4 +42,28 @@ body {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: flex-start;
+}
+
+.dashboard-column {
+	width: 50%;
+	box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+	.container-dashboard {
+		padding: 30px 55px 90px;
+	}
+}
+
+@media (min-width: 992px) {
+	.data-container {
+		padding: 40px 55px;
+	}
+}
+
+@media (min-width: 768px) {
+	.data-container {
+		min-height: calc(100vh - 98px - 70px);
+		padding: 70px 35px;
+	}
 }

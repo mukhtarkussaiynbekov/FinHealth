@@ -8,12 +8,16 @@ const App = () => {
 	return (
 		<div>
 			<FinHealthHeader />
-			<div className="row data-container">
-				<div className="col-6">
-					<Accounts />
-				</div>
-				<div className="col-6">
-					<Transactions />
+			<div className="data-container container-dashboard">
+				<div className="dashboard">
+					<div className="dashboard-body">
+						<div className="dashboard-column" style={{ minWidth: 540 }}>
+							<Accounts />
+						</div>
+						<div className="dashboard-column">
+							<Transactions />
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
