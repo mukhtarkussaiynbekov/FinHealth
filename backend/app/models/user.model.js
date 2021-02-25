@@ -11,6 +11,12 @@ const User = mongoose.model(
                 ref: "Role"
             }
         ],
+        income: [
+            {
+                name: String,
+                amount: Number
+            }
+        ],
         accounts: [
             {
                 name: String,

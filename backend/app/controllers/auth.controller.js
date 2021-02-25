@@ -92,6 +92,7 @@ User.findOne({
     var authorities = [];
     var accounts = [];
     var categories = [];
+    var income = [];
     for (let i = 0; i < user.roles.length; i++) {
         authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
     }
@@ -101,12 +102,18 @@ User.findOne({
     for (let i = 0; i < user.categories.length; i++) {
         categories.push({ name: user.categories[i].name, balance: user.categories[i].balance, budget: user.categories[i].budget });
     }   
+    
+    for (let i = 0; i < user.income.length; i++) {
+        income.push({ name: user.income[i].name, amount: user.income[i].amount });
+    }
+    
     res.status(200).send({
         id: user._id,
         email: user.email,
         roles: authorities,
         accounts: accounts,
         categories: categories,
+        income: income,
         accessToken: token
     });
     });
