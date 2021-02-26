@@ -78,6 +78,8 @@ const deleteTransaction = (req, res) => {
 const getAllTransactions = (req, res) => {
     const ctg = req.query.category;
     const acc = req.query.account;
+    const count = req.query.count ? Number.parseInt(req.query.count) : 100;
+    
     let condition = {};
     condition.owner = req.userId;
     if (ctg) {
@@ -92,7 +94,7 @@ const getAllTransactions = (req, res) => {
             owner: 0,
             _id: 0
         }   
-    ).sort({ _id: 1, __v: 1 }).limit(100).exec((err, transactions) => {
+    ).sort({ _id: 1, __v: 1 }).limit(count).exec((err, transactions) => {
         if (err) {
             res.status(500).send({ message: err });
             return;
