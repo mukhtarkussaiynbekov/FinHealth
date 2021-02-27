@@ -4,8 +4,10 @@ const Role = db.role
 const Transaction = db.transaction;
 
 const createTransaction = async (req, res) => {
+    const date = new Date(req.body.date);
+    console.log(date.toString());
     let transaction = new Transaction({
-        date: req.body.date,
+        date: date,
         transaction: req.body.transaction,
         owner: req.userId,
         account: req.body.account,
@@ -58,11 +60,7 @@ const createTransaction = async (req, res) => {
 }
 
 const deleteTransaction = (req, res) => {
-    Transaction.findOneAndDelete({
-        date: req.body.date,
-        transaction: req.body.transaction,
-        owner: req.userId
-    }, (err, transaction) => {
+    Transaction.findById(req.body.id, (err, transaction) => {
         if (err) {
             res.status(500).send({ message: err });
             return;
@@ -79,7 +77,8 @@ const getAllTransactions = (req, res) => {
     const ctg = req.query.category;
     const acc = req.query.account;
     const count = req.query.count ? Number.parseInt(req.query.count) : 100;
-    
+    const from = req.query.from;
+    const to = req.query.to
     let condition = {};
     condition.owner = req.userId;
     if (ctg) {
@@ -87,6 +86,18 @@ const getAllTransactions = (req, res) => {
     }
     if (acc) {
         condition.account = acc;
+    }
+    condition.date = {};
+    if (from) {
+        condition.date = {
+            $gte: new Date(from)
+        };
+    }
+    if (to) {
+        Object.assign(condition.date, { $lte: new Date(to) });
+    }
+    if (Object.keys(condition.date).length == 0) {
+        delete condition.date;
     }
     Transaction.find(
         condition,
