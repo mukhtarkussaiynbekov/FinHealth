@@ -76,3 +76,83 @@
 	font-weight: 500;
 	color: #4f4f4f;
 }
+
+.category-income .category-icon-wrapper {
+	background-color: #0491d1;
+}
+
+.category-icon-wrapper {
+	position: relative;
+	margin: 10px 0;
+	width: 60px;
+	height: 60px;
+	overflow: hidden;
+	border-radius: 50%;
+	background: #c1c5c9;
+	cursor: pointer;
+}
+
+.category-income .category-icon-wrapper,
+.category-account .category-icon-wrapper,
+.category-bankaccount .category-icon-wrapper,
+.category-debtaccount .category-icon-wrapper,
+.category-expense .category-icon-wrapper,
+.category-goal .category-icon-wrapper,
+.category-classicgoal .category-icon-wrapper {
+	box-shadow: 0 2px 9px 0 rgb(0 0 0 / 13%);
+}
+
+.category-income .category-fill {
+	background-color: #03bded;
+}
+
+.category-fill {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.category-icon {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 37px;
+	height: 37px;
+	margin: auto;
+}
+
+.category-amount {
+	padding: 4px 0;
+	height: 40px;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.category-income .category-actual-amount {
+	color: #0a93d1;
+}
+
+.category-actual-amount {
+	height: 16px;
+	line-height: 16px;
+	font-weight: 500;
+	font-size: 16px;
+}
+
+.category-edit {
+	position: absolute;
+	top: 45px;
+	right: 1px;
+	width: 18px;
+	height: 18px;
+	fill: #d5d5d5;
+	cursor: pointer;
+	z-index: 3;
+}
+
+.category-add-category {
+	padding: 38px 0 40px;
+}
