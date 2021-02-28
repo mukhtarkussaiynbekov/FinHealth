@@ -1,4 +1,4 @@
-const { createTransaction, deleteTransaction, getAllTransactions } = require("../controllers/transaction.controller.js");
+const { createTransaction, deleteTransaction, changeTransaction, getAllTransactions } = require("../controllers/transaction.controller.js");
 const { authJwt } = require("../middlewares/index.js");
  
 module.exports = function(app) {
@@ -16,6 +16,7 @@ module.exports = function(app) {
     app.delete("/transaction", [authJwt.verifyToken], deleteTransaction);
     
     */
+    app.put("/transaction/:id", [authJwt.verifyToken], changeTransaction);
 
     app.get("/transaction", [authJwt.verifyToken], getAllTransactions);
     
