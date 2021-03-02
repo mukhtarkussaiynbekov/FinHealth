@@ -2,9 +2,9 @@ import React from 'react';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-const Header = () => {
+const FinHealthHeader = () => {
 	return (
-		<header>
+		<header className="header">
 			<div className="header_container">
 				<div className="header_left">
 					<MonetizationOnIcon
@@ -22,7 +22,7 @@ const Header = () => {
 								// event.target.style.textDecoration = 'underline';
 							}}
 						>
-							email@gmail.com
+							HOW TO PASS ARGUMENT
 							{/* <div class="underbar"></div> */}
 						</div>
 						<div className="header_dropdown-menu profile-dropdown-menu">
@@ -35,4 +35,4 @@ const Header = () => {
 	);
 };
 
-export default Header;
+export default FinHealthHeader;
