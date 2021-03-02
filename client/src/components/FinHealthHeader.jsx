@@ -22,7 +22,7 @@ const FinHealthHeader = () => {
 								// event.target.style.textDecoration = 'underline';
 							}}
 						>
-							email@gmail.com
+							HOW TO PASS ARGUMENT
 							{/* <div class="underbar"></div> */}
 						</div>
 						<div className="header_dropdown-menu profile-dropdown-menu">
