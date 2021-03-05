@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import FinHealthHeader from './FinHealthHeader';
-import Accounts from './Accounts/Accounts';
-import Transactions from './Transactions/Transactions';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import AuthService from '../services/auth.service';
@@ -36,107 +34,73 @@ const ProtectedRoute = ({ component: Comp, currentUser, path, ...rest }) => {
 };
 
 const App = () => {
+	const [state, setState] = useState({ currentUser: undefined });
+
+	useEffect(() => {
+		const user = AuthService.getCurrentUser();
+
+		if (user) {
+			setState({
+				currentUser: user
+			});
+		}
+	}, []);
+
+	const authChanger = () => {
+		setState({
+			currentUser: AuthService.getCurrentUser()
+		});
+	};
+
+	const logOut = () => {
+		AuthService.logout();
+	};
+
+	const { currentUser } = state;
+
 	return (
 		<div>
-			<FinHealthHeader />
-			<div className="data-container container-dashboard">
-				<div className="dashboard">
-					<div className="dashboard-body">
-						<div className="dashboard-column" style={{ minWidth: 540 }}>
-							<Accounts />
-						</div>
-						<div className="dashboard-column">
-							<Transactions />
-						</div>
-					</div>
+			{currentUser ? (
+				<div>
+					<FinHealthHeader email={currentUser.email} onLogOut={logOut} />
 				</div>
+			) : (
+				<nav className="navbar navbar-expand navbar-dark bg-dark">
+					<Link to={'/'} className="navbar-brand"></Link>
+					<div className="navbar-nav ml-auto">
+						<li className="nav-item">
+							<Link to={'/login'} className="nav-link">
+								Login
+							</Link>
+						</li>
+
+						<li className="nav-item">
+							<Link to={'/register'} className="nav-link">
+								Sign Up
+							</Link>
+						</li>
+					</div>
+				</nav>
+			)}
+
+			<div className="container mt-3">
+				<Switch>
+					<ProtectedRoute
+						exact
+						path={['/', '/profile']}
+						component={Profile}
+						currentUser={currentUser}
+					/>
+					<Route
+						exact
+						path="/login"
+						render={() => <Login authChanger={authChanger} />}
+					/>
+					<Route exact path="/register" component={Register} />
+				</Switch>
 			</div>
 		</div>
 	);
 };
-// class App extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.logOut = this.logOut.bind(this);
-// 	this.authChanger = this.authChanger.bind(this);
-//     this.state = {
-//       currentUser: undefined,
-//     };
-//   }
-
-//   componentDidMount() {
-//     const user = AuthService.getCurrentUser();
-
-//     if (user) {
-//       this.setState({
-//         currentUser: user,
-//       });
-//     }
-//   }
-
-//   authChanger() {
-// 	  this.setState({
-// 		  currentUser: AuthService.getCurrentUser()
-// 	  });
-//   }
-//   logOut() {
-//     AuthService.logout();
-//   }
-
-//   render() {
-//     const { currentUser } = this.state;
-
-//     return (
-// 	 <div>
-// 		{currentUser && (
-// 			<div>
-// 				<Header email={ currentUser.email }/>
-// 			</div>)
-// 		}
-//         <nav className="navbar navbar-expand navbar-dark bg-dark">
-//           <Link to={"/"} className="navbar-brand">
-//           </Link>
-
-//           {currentUser ? (
-//             <div className="navbar-nav ml-auto">
-//               <li className="nav-item">
-//                 <Link to={"/profile"} className="nav-link">
-//                   {currentUser.email}
-//                 </Link>
-//               </li>
-//               <li className="nav-item">
-//                 <a href="/login" className="nav-link" onClick={this.logOut}>
-//                   LogOut
-//                 </a>
-//               </li>
-//             </div>
-//           ) : (
-//             <div className="navbar-nav ml-auto">
-//               <li className="nav-item">
-//                 <Link to={"/login"} className="nav-link">
-//                   Login
-//                 </Link>
-//               </li>
-
-//               <li className="nav-item">
-//                 <Link to={"/register"} className="nav-link">
-//                   Sign Up
-//                 </Link>
-//               </li>
-//             </div>
-//           )}
-//         </nav>
-
-//         <div className="container mt-3">
-// 		  <Switch>
-// 			<ProtectedRoute exact path={["/", "/profile"]} component={Profile} currentUser={this.state.currentUser}/>
-//             <Route exact path="/login" render={() => <Login authChanger={this.authChanger}/>} />
-//             <Route exact path="/register" component={Register} />
-//           </Switch>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
 
 export default App;

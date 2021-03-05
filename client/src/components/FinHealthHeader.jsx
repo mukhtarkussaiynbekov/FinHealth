@@ -2,7 +2,7 @@ import React from 'react';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-const FinHealthHeader = () => {
+const FinHealthHeader = ({ email, onLogOut }) => {
 	return (
 		<header className="header">
 			<div className="header_container">
@@ -22,12 +22,15 @@ const FinHealthHeader = () => {
 								// event.target.style.textDecoration = 'underline';
 							}}
 						>
-							HOW TO PASS ARGUMENT
+							{email}
 							{/* <div class="underbar"></div> */}
 						</div>
 						<div className="header_dropdown-menu profile-dropdown-menu">
 							<AccountCircleIcon fontSize="large" />
 						</div>
+						<a href="/login" className="nav-link" onClick={onLogOut}>
+							LogOut
+						</a>
 					</div>
 				</div>
 			</div>
