@@ -32,7 +32,7 @@
 	width: fit-content;
 }
 
-.popup-bloincome {
+.popup-block-income {
 	position: relative;
 	background-color: #0491d1;
 }
@@ -90,6 +90,29 @@
 	position: absolute;
 	top: 12px;
 	right: 30px;
+}
+
+.card-item-icon-income {
+	background-color: #03bded;
+}
+
+.card-item-icon {
+	display: flex;
+	position: relative;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	overflow: hidden;
+	box-shadow: 0 2px 9px 0 rgb(0 0 0 / 13%);
+	margin: auto;
+	cursor: pointer;
+}
+
+.card-item-icon-miscellaneous {
+	width: 37px;
+	height: 37px;
+	background-repeat: no-repeat;
+	margin: auto;
 }
 
 .popup-input-number {

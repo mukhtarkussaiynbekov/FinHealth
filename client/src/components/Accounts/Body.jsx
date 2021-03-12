@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CreateIcon from '@material-ui/icons/Create';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import AddIcon from '@material-ui/icons/Add';
+import AddPopUp from './AddPopUp';
 
 const Body = () => {
+	const [addPopUpSeen, setAddPopUpSeen] = useState(false);
+
+	const togglePop = () => {
+		setAddPopUpSeen(!addPopUpSeen);
+	};
+
 	return (
 		<div className="category-block-body">
 			<div className="category category-income">
@@ -23,7 +30,7 @@ const Body = () => {
 					<CreateIcon fontSize="small" />
 				</div>
 			</div>
-			<div className="category category-add-category">
+			<div className="category category-add-category" onClick={togglePop}>
 				<div className="category-icon-wrapper">
 					<div className="category-fill"></div>
 					<div className="category-icon">
@@ -31,6 +38,7 @@ const Body = () => {
 					</div>
 				</div>
 			</div>
+			{addPopUpSeen && <AddPopUp toggle={togglePop} />}
 		</div>
 	);
 };
