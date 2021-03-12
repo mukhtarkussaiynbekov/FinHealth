@@ -1,0 +1,183 @@
+.popup-block {
+	width: 450px;
+	box-shadow: 0 2px 9px 0 rgb(0 0 0 / 13%);
+	border-radius: 5px;
+	position: absolute;
+}
+
+.popup-message {
+	background: rgba(242, 242, 242, 0.8);
+	white-space: nowrap;
+	text-align: center;
+	padding: 100px 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	overflow-y: scroll;
+	width: 100%;
+	height: 100%;
+	z-index: 411;
+}
+
+.popup-content {
+	position: relative;
+	border-radius: 4px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	-ms-flex-align: start;
+	align-items: flex-start;
+	width: 850px;
+	margin: auto;
+	width: fit-content;
+}
+
+.popup-bloincome {
+	position: relative;
+	background-color: #0491d1;
+}
+
+.popup-block {
+	width: 450px;
+	box-shadow: 0 2px 9px 0 rgb(0 0 0 / 13%);
+	border-radius: 5px;
+	position: absolute;
+}
+
+.create-input {
+	height: 86px;
+	position: relative;
+}
+
+.create-input-sep {
+	border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.form-item {
+	position: relative;
+}
+
+.popup-input {
+	display: block;
+	height: 100%;
+	width: 100%;
+	padding: 30px 100px 30px 25px;
+	color: #fff;
+	font-size: 18px;
+}
+
+.popup-input-sub {
+	position: absolute;
+	bottom: 10px;
+	left: 26px;
+	font-size: 12px;
+	color: #fff;
+	font-weight: 500;
+}
+
+.popup-input-sub-error {
+	color: #e53935;
+	animation: blinker 1.2s linear;
+}
+
+.popup-bloexpense .popup-input-sub-error,
+.popup-bloincome .popup-input-sub-error,
+.popup-blogoal .popup-input-sub-error {
+	color: #fce431;
+}
+
+.icon-picker-icon {
+	position: absolute;
+	top: 12px;
+	right: 30px;
+}
+
+.popup-input-number {
+	padding: 30px 30px 30px 25px;
+}
+
+.selectbox {
+	height: 69px;
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 30px;
+	font-size: 18px;
+	color: #fff;
+}
+
+.transaction-helper-input {
+	position: absolute;
+	top: -1000px;
+	left: -1000px;
+	visibility: hidden;
+	white-space: pre;
+	font-size: inherit;
+	font-style: inherit;
+}
+
+.selectbox input {
+	color: #fff;
+	font-size: 18px;
+	font-family: inherit;
+}
+
+.btn-create {
+	height: 80px;
+	font-weight: 400;
+	font-size: 22px;
+	line-height: 80px;
+	transition: all 0.3s;
+	user-select: none;
+}
+
+.btn-create-income {
+	background-color: #03bded;
+}
+
+.btn,
+.btn-category,
+.submit,
+.btn-create,
+.btn-delete,
+.btn-success,
+.popup-ready-button-color-foliage,
+.btn-danger,
+.btn-warning {
+	text-align: center;
+	color: #fff;
+	font-family: 'Roboto', sans-serif;
+	text-transform: uppercase;
+	width: 100%;
+	cursor: pointer;
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	transition: all 0.5s;
+}
+
+.btn-wrapper-invisible {
+	height: 0;
+}
+
+.btn-wrapper {
+	height: 80px;
+	transition: all 0.3s;
+}
+
+.btn-invisible {
+	visibility: hidden;
+	height: 0;
+	overflow: hidden;
+}
+
+.btn-category {
+	height: 80px;
+	font-weight: 400;
+	font-size: 22px;
+	line-height: 80px;
+	transition: all 0.3s;
+	user-select: none;
+	color: rgba(255, 255, 255, 0.5);
+}

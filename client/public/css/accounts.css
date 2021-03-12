@@ -156,3 +156,12 @@
 .category-add-category {
 	padding: 38px 0 40px;
 }
+
+.category-block-trigger {
+	cursor: pointer;
+	display: block;
+	text-align: center;
+	width: 100%;
+	position: relative;
+	height: 24px;
+}
