@@ -1,9 +1,21 @@
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+	box-sizing: border-box;
+	list-style: none;
+	text-decoration: none;
+	background-color: transparent;
+}
+
 body {
 	background-color: #efefec;
 	background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
 	padding: 0 16px;
 	font-family: 'Roboto', sans-serif;
-	-webkit-font-smoothing: antialiased;
 	font-weight: 400;
 	color: #64635f;
 	position: relative;
