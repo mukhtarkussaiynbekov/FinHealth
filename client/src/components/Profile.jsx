@@ -14,7 +14,7 @@ const Profile = () => {
 			<div className="dashboard">
 				<div className="dashboard-body">
 					<div className="dashboard-column" style={{ minWidth: 540 }}>
-						<Accounts />
+						<Accounts source={'income'} userID={currentUser.id} />
 					</div>
 					<div className="dashboard-column">
 						<Transactions />

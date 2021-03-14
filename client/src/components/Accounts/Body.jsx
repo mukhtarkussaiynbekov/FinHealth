@@ -4,7 +4,7 @@ import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import AddIcon from '@material-ui/icons/Add';
 import AddPopUp from './AddPopUp';
 
-const Body = () => {
+const Body = ({ source, userID }) => {
 	const [addPopUpSeen, setAddPopUpSeen] = useState(false);
 
 	const togglePop = () => {
@@ -13,9 +13,9 @@ const Body = () => {
 
 	return (
 		<div className="category-block-body">
-			<div className="category category-income">
-				<div className="category-title" title="Income">
-					Income
+			<div className={`category category-${source}`}>
+				<div className="category-title" title={source}>
+					{source}
 				</div>
 				<div className="category-icon-wrapper">
 					<div className="category-fill"></div>
@@ -38,7 +38,9 @@ const Body = () => {
 					</div>
 				</div>
 			</div>
-			{addPopUpSeen && <AddPopUp toggle={togglePop} />}
+			{addPopUpSeen && (
+				<AddPopUp toggle={togglePop} source={source} userID={userID} />
+			)}
 		</div>
 	);
 };

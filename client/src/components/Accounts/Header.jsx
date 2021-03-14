@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Header = ({ title }) => {
+const Header = ({ source }) => {
 	return (
 		<div className="category-block-header">
 			<div className="category-block-title">
-				<div className="category-block-name">Income</div>
+				<div className="category-block-name">{source}</div>
 				<div className="category-block-date">01/25/2021-02/24/2021</div>
 			</div>
 			<div className="category-block-stats">
