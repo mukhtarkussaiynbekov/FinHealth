@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import authHeader from '../../services/auth-header.js';
 const API_URL = 'http://localhost:8080/';
 
 const AddPopUp = ({ toggle, source, userID }) => {
@@ -25,7 +26,9 @@ const AddPopUp = ({ toggle, source, userID }) => {
 			axios.post(API_URL + source, {
 				name: inputValues.name,
 				amount: inputValues.money
-			});
+				},
+				{headers: authHeader()}
+			);
 			toggle();
 		}
 	};
@@ -67,6 +70,7 @@ const AddPopUp = ({ toggle, source, userID }) => {
 										className="popup-input popup-input-number"
 										placeholder="Planning to receive per month"
 										title="money"
+										type="number"
 										value={inputValues.money}
 										onChange={updateInputValues}
 									/>
