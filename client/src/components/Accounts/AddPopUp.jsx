@@ -3,7 +3,7 @@ import axios from 'axios';
 import authHeader from '../../services/auth-header.js';
 const API_URL = 'http://localhost:8080/';
 
-const AddPopUp = ({ toggle, source, userID }) => {
+const AddPopUp = ({ toggle, source, currentUser }) => {
 	const handleClick = event => {
 		setIsInputFocused(event.target.title === 'name');
 		if (event.target.className === 'popup-message') {
@@ -23,15 +23,20 @@ const AddPopUp = ({ toggle, source, userID }) => {
 	const onAdd = () => {
 		if (inputValues.name) {
 			// Make call to the server to add new data
-			axios.post(
-				API_URL + source,
-				{
-					name: inputValues.name,
-					amount: inputValues.money
-				},
-				{ headers: authHeader() }
-			);
-			toggle();
+			axios
+				.post(
+					API_URL + source,
+					{
+						name: inputValues.name,
+						amount: inputValues.money
+					},
+					{ headers: authHeader() }
+				)
+				.then(response => {
+					currentUser[source] = response.data.field;
+					localStorage.setItem('user', JSON.stringify(currentUser));
+					toggle();
+				});
 		}
 	};
 

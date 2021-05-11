@@ -2,17 +2,13 @@ import React from 'react';
 import Accounts from './Accounts/Accounts';
 import Transactions from './Transactions/Transactions';
 
-const Profile = ({ currentUser }) => {
+const Profile = () => {
 	return (
 		<div className="data-container container-dashboard">
 			<div className="dashboard">
 				<div className="dashboard-body">
 					<div className="dashboard-column" style={{ minWidth: 540 }}>
-						<Accounts
-							source={'income'}
-							userID={currentUser.id}
-							accounts={currentUser.income}
-						/>
+						<Accounts source={'income'} />
 					</div>
 					<div className="dashboard-column">
 						<Transactions />

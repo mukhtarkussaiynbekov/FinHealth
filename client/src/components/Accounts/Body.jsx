@@ -3,14 +3,17 @@ import CreateIcon from '@material-ui/icons/Create';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import AddIcon from '@material-ui/icons/Add';
 import AddPopUp from './AddPopUp';
+import AuthService from '../../services/auth.service';
 
-const Body = ({ source, userID, accounts }) => {
+const Body = ({ source }) => {
+	let currentUser = AuthService.getCurrentUser();
+	let accounts = currentUser[source];
 	const [addPopUpSeen, setAddPopUpSeen] = useState(false);
 
 	const togglePop = () => {
 		setAddPopUpSeen(!addPopUpSeen);
 	};
-	console.log(accounts);
+
 	return (
 		<div className="category-block-body">
 			{accounts.map((account, idx) => (
@@ -42,7 +45,11 @@ const Body = ({ source, userID, accounts }) => {
 				</div>
 			</div>
 			{addPopUpSeen && (
-				<AddPopUp toggle={togglePop} source={source} userID={userID} />
+				<AddPopUp
+					toggle={togglePop}
+					source={source}
+					currentUser={currentUser}
+				/>
 			)}
 		</div>
 	);

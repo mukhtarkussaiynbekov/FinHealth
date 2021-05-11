@@ -2,11 +2,11 @@ import React from 'react';
 import Header from './Header';
 import Body from './Body';
 
-const Accounts = ({ source, userID, accounts }) => {
+const Accounts = ({ source }) => {
 	return (
 		<div className="accounts-container">
-			<Header source={source} userID={userID} />
-			<Body source={source} userID={userID} accounts={accounts} />
+			<Header source={source} />
+			<Body source={source} />
 		</div>
 	);
 };
