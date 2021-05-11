@@ -23,11 +23,13 @@ const AddPopUp = ({ toggle, source, userID }) => {
 	const onAdd = () => {
 		if (inputValues.name) {
 			// Make call to the server to add new data
-			axios.post(API_URL + source, {
-				name: inputValues.name,
-				amount: inputValues.money
+			axios.post(
+				API_URL + source,
+				{
+					name: inputValues.name,
+					amount: inputValues.money
 				},
-				{headers: authHeader()}
+				{ headers: authHeader() }
 			);
 			toggle();
 		}
@@ -77,7 +79,7 @@ const AddPopUp = ({ toggle, source, userID }) => {
 								</div>
 							</div>
 
-							<div class="form-action">
+							<div className="form-action">
 								<input
 									type="button"
 									value="add"

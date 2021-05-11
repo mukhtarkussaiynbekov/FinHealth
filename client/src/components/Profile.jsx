@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
-import AuthService from '../services/auth.service';
+import React from 'react';
 import Accounts from './Accounts/Accounts';
 import Transactions from './Transactions/Transactions';
 
-const Profile = () => {
-	const [state, setState] = useState({
-		currentUser: AuthService.getCurrentUser()
-	});
-	const { currentUser } = state;
-
+const Profile = ({ currentUser }) => {
 	return (
 		<div className="data-container container-dashboard">
 			<div className="dashboard">
 				<div className="dashboard-body">
 					<div className="dashboard-column" style={{ minWidth: 540 }}>
-						<Accounts source={'income'} userID={currentUser.id} />
+						<Accounts
+							source={'income'}
+							userID={currentUser.id}
+							accounts={currentUser.income}
+						/>
 					</div>
 					<div className="dashboard-column">
 						<Transactions />
