@@ -37,8 +37,7 @@ const createField = (req, res, field) => {
                 res.status(500).send({ message: err });
                 return;
             }
-
-            res.status(200).send({ message: `Successfully created ${field} ${req.body.name}` });
+            res.status(200).send({ message: `Successfully created ${field} ${req.body.name}`, field: collections });
         });
         
     })
@@ -63,7 +62,7 @@ const deleteField = (req, res, field) => {
                         res.status(500).send({ message: err });
                         return;
                     }
-                    res.status(200).send({ message: `Successfully deleted ${field} ${req.body.name}` });
+                    res.status(200).send({ message: `Successfully deleted ${field} ${req.body.name}`, field: collections });
                 });
                 return;
             }
