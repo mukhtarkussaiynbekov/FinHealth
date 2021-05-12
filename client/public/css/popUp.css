@@ -1,3 +1,23 @@
+.btn,
+.btn-category,
+.submit,
+.btn-create,
+.btn-delete,
+.btn-success,
+.popup-ready-button-color-foliage,
+.btn-danger,
+.btn-warning {
+	text-align: center;
+	color: #fff;
+	font-family: 'Roboto', sans-serif;
+	text-transform: uppercase;
+	width: 100%;
+	cursor: pointer;
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	transition: all 0.5s;
+}
+
 .popup-block {
 	width: 450px;
 	box-shadow: 0 2px 9px 0 rgb(0 0 0 / 13%);
@@ -159,28 +179,27 @@
 	user-select: none;
 }
 
-.btn-create-income {
-	background-color: #03bded;
+.btn-create:hover {
+	background-color: rgba(85, 192, 237, 1);
 }
 
-.btn,
-.btn-category,
-.submit,
-.btn-create,
-.btn-delete,
-.btn-success,
-.popup-ready-button-color-foliage,
-.btn-danger,
-.btn-warning {
-	text-align: center;
+.btn-delete {
+	height: 80px;
+	font-weight: 400;
+	font-size: 22px;
+	line-height: 80px;
+	transition: all 0.3s;
+	user-select: none;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-delete:hover {
 	color: #fff;
-	font-family: 'Roboto', sans-serif;
-	text-transform: uppercase;
-	width: 100%;
-	cursor: pointer;
-	border-bottom-right-radius: 4px;
-	border-bottom-left-radius: 4px;
-	transition: all 0.5s;
+	background-color: rgba(61, 144, 204, 1);
+}
+
+.btn-create-income {
+	background-color: #03bded;
 }
 
 .btn-wrapper-invisible {

@@ -3,7 +3,7 @@ import axios from 'axios';
 import authHeader from '../../services/auth-header.js';
 const API_URL = 'http://localhost:8080/';
 
-const AddPopUp = ({ toggle, source, currentUser }) => {
+const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 	const handleClick = event => {
 		setIsInputFocused(event.target.title === 'name');
 		if (event.target.className === 'popup-message') {
@@ -20,6 +20,11 @@ const AddPopUp = ({ toggle, source, currentUser }) => {
 		setInputValues({ ...inputValues, [title]: newValue });
 	};
 
+	const updateStorage = response => {
+		currentUser[source] = response.data.field;
+		localStorage.setItem('user', JSON.stringify(currentUser));
+	};
+
 	const onAdd = () => {
 		if (inputValues.name) {
 			// Make call to the server to add new data
@@ -33,8 +38,47 @@ const AddPopUp = ({ toggle, source, currentUser }) => {
 					{ headers: authHeader() }
 				)
 				.then(response => {
-					currentUser[source] = response.data.field;
-					localStorage.setItem('user', JSON.stringify(currentUser));
+					updateStorage(response);
+					toggle();
+				});
+		}
+	};
+
+	const onChange = () => {
+		// TODO: change below lines to correctly change data.
+		// Currently it just adds new data
+		if (inputValues.name) {
+			// Make call to the server to change existing data
+			axios
+				.post(
+					API_URL + source,
+					{
+						name: inputValues.name,
+						amount: inputValues.money
+					},
+					{ headers: authHeader() }
+				)
+				.then(response => {
+					updateStorage(response);
+					toggle();
+				});
+		}
+	};
+
+	const onDelete = () => {
+		// TODO: check correctness of this function
+		if (inputValues.name) {
+			// Make call to the server to delete existing data
+			axios
+				.delete(
+					API_URL + source,
+					{
+						name: inputValues.name
+					},
+					{ headers: authHeader() }
+				)
+				.then(response => {
+					updateStorage(response);
 					toggle();
 				});
 		}
@@ -87,11 +131,21 @@ const AddPopUp = ({ toggle, source, currentUser }) => {
 							<div className="form-action">
 								<input
 									type="button"
-									value="add"
+									value={isAdd ? 'add' : 'change'}
 									className={`btn-create btn-create-${source}`}
-									onClick={onAdd}
+									onClick={isAdd ? onAdd : onChange}
 								/>
 							</div>
+							{!isAdd && (
+								<div className="form-action">
+									<input
+										type="button"
+										value="delete"
+										className="btn-delete"
+										onClick={onDelete}
+									/>
+								</div>
+							)}
 						</div>
 					</div>
 				</div>
@@ -100,4 +154,4 @@ const AddPopUp = ({ toggle, source, currentUser }) => {
 	);
 };
 
-export default AddPopUp;
+export default PopUp;

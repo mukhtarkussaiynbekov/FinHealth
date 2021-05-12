@@ -2,16 +2,20 @@ import React, { useState } from 'react';
 import CreateIcon from '@material-ui/icons/Create';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import AddIcon from '@material-ui/icons/Add';
-import AddPopUp from './AddPopUp';
+import PopUp from './PopUp';
 import AuthService from '../../services/auth.service';
 
 const Body = ({ source }) => {
 	let currentUser = AuthService.getCurrentUser();
 	let accounts = currentUser[source];
-	const [addPopUpSeen, setAddPopUpSeen] = useState(false);
+	const [popUpState, setPopUpState] = useState({
+		popUpSeen: false,
+		isAdd: false,
+		selectedIdx: -1
+	});
 
 	const togglePop = () => {
-		setAddPopUpSeen(!addPopUpSeen);
+		setPopUpState({ ...popUpState, popUpSeen: !popUpState.popUpSeen });
 	};
 
 	return (
@@ -30,13 +34,31 @@ const Body = ({ source }) => {
 					<div className="category-amount">
 						<div className="category-actual-amount">{account.amount}</div>
 					</div>
-					<div className="category-edit">
+					<div
+						className="category-edit"
+						onClick={() =>
+							setPopUpState({
+								isAdd: false,
+								popUpSeen: !popUpState.popUpSeen,
+								selectedIdx: idx
+							})
+						}
+					>
 						<CreateIcon fontSize="small" />
 					</div>
 				</div>
 			))}
 
-			<div className="category category-add-category" onClick={togglePop}>
+			<div
+				className="category category-add-category"
+				onClick={() =>
+					setPopUpState({
+						isAdd: true,
+						popUpSeen: !popUpState.popUpSeen,
+						selectedIdx: -1
+					})
+				}
+			>
 				<div className="category-icon-wrapper">
 					<div className="category-fill"></div>
 					<div className="category-icon">
@@ -44,11 +66,13 @@ const Body = ({ source }) => {
 					</div>
 				</div>
 			</div>
-			{addPopUpSeen && (
-				<AddPopUp
+			{popUpState.popUpSeen && (
+				<PopUp
 					toggle={togglePop}
 					source={source}
 					currentUser={currentUser}
+					isAdd={popUpState.isAdd}
+					selectedIdx={popUpState.selectedIdx}
 				/>
 			)}
 		</div>
