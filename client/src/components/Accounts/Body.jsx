@@ -3,10 +3,8 @@ import CreateIcon from '@material-ui/icons/Create';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import AddIcon from '@material-ui/icons/Add';
 import PopUp from './PopUp';
-import AuthService from '../../services/auth.service';
 
-const Body = ({ source }) => {
-	let currentUser = AuthService.getCurrentUser();
+const Body = ({ source, currentUser }) => {
 	let accounts = currentUser[source];
 	const [popUpState, setPopUpState] = useState({
 		popUpSeen: false,
