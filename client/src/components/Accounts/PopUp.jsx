@@ -11,8 +11,11 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 		}
 	};
 
-	const [inputValues, setInputValues] = useState({ name: '', money: '' });
+	const [inputValues, setInputValues] = useState({ name: '', amount: '' });
 	const [isInputFocused, setIsInputFocused] = useState(false);
+	let nameExists = currentUser[source].some(
+		object => object.name === inputValues.name
+	);
 
 	const updateInputValues = event => {
 		let title = event.target.title;
@@ -26,17 +29,10 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 	};
 
 	const onAdd = () => {
-		if (inputValues.name) {
+		if (inputValues.name && !nameExists) {
 			// Make call to the server to add new data
 			axios
-				.post(
-					API_URL + source,
-					{
-						name: inputValues.name,
-						amount: inputValues.money
-					},
-					{ headers: authHeader() }
-				)
+				.post(API_URL + source, inputValues, { headers: authHeader() })
 				.then(response => {
 					updateStorage(response);
 					toggle();
@@ -54,7 +50,7 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 					API_URL + source,
 					{
 						name: inputValues.name,
-						amount: inputValues.money
+						amount: inputValues.amount
 					},
 					{ headers: authHeader() }
 				)
@@ -67,21 +63,21 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 
 	const onDelete = () => {
 		// TODO: check correctness of this function
-		if (inputValues.name) {
-			// Make call to the server to delete existing data
-			axios
-				.delete(
-					API_URL + source,
-					{
-						name: inputValues.name
-					},
-					{ headers: authHeader() }
-				)
-				.then(response => {
-					updateStorage(response);
-					toggle();
-				});
-		}
+		// Make call to the server to delete existing data
+		console.log(currentUser[source][selectedIdx].name);
+		axios
+			.delete(
+				API_URL + source,
+				{
+					name: currentUser[source][selectedIdx].name
+				},
+				{ headers: authHeader() }
+			)
+			.then(response => {
+				console.log(response);
+				updateStorage(response);
+				toggle();
+			});
 	};
 
 	return (
@@ -94,17 +90,22 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 								<div className="form-item">
 									<input
 										className="popup-input"
-										placeholder="Where does money come from? *"
+										placeholder="Where does amount come from? *"
 										title="name"
 										value={inputValues.name}
 										onChange={updateInputValues}
 									/>
-									{isInputFocused && (
+									{nameExists && (
+										<div className="popup-input-sub popup-input-sub-error">
+											* Name already exists. Change to different name
+										</div>
+									)}
+									{isInputFocused && !nameExists && (
 										<div className="popup-input-sub">* Required field</div>
 									)}
 									{inputValues.name === '' && !isInputFocused && (
 										<div className="popup-input-sub popup-input-sub-error">
-											* Enter income source title
+											* Enter {source} source title
 										</div>
 									)}
 								</div>
@@ -120,9 +121,9 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 									<input
 										className="popup-input popup-input-number"
 										placeholder="Planning to receive per month"
-										title="money"
+										title="amount"
 										type="number"
-										value={inputValues.money}
+										value={inputValues.amount}
 										onChange={updateInputValues}
 									/>
 								</div>
