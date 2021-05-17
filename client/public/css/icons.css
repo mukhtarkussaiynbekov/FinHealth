@@ -1,0 +1,57 @@
+.icon-picker-wrapper {
+	width: 360px;
+	max-height: 550px;
+	height: 100%;
+	overflow-y: auto;
+	margin-left: 40px;
+}
+
+.card-list {
+	flex-wrap: wrap;
+	display: flex;
+	padding: 15px 20px 0 20px;
+}
+
+.card-list .card-item-icon-income:hover {
+	background-color: #03bded;
+}
+
+.icon-picker-wrapper .card-item-icon {
+	margin: 5px 0;
+	display: flex;
+	background-color: transparent;
+	box-shadow: none;
+}
+
+.card-item-icon {
+	display: flex;
+	position: relative;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	overflow: hidden;
+	box-shadow: 0 2px 9px 0 rgb(0 0 0 / 13%);
+	margin: auto;
+	cursor: pointer;
+}
+
+.card-icon {
+	margin: auto;
+}
+
+.icon-picker-icon {
+	position: absolute;
+	top: 12px;
+	right: 30px;
+}
+
+.card-item-icon-income {
+	background-color: #03bded;
+}
+
+.card-item-icon-miscellaneous {
+	width: 37px;
+	height: 37px;
+	background-repeat: no-repeat;
+	margin: auto;
+}

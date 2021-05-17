@@ -18,13 +18,6 @@
 	transition: all 0.5s;
 }
 
-.popup-block {
-	width: 450px;
-	box-shadow: 0 2px 9px 0 rgb(0 0 0 / 13%);
-	border-radius: 5px;
-	position: absolute;
-}
-
 .popup-message {
 	background: rgba(242, 242, 242, 0.8);
 	white-space: nowrap;
@@ -51,16 +44,16 @@
 	width: fit-content;
 }
 
-.popup-block-income {
-	position: relative;
-	background-color: #0491d1;
-}
-
 .popup-block {
 	width: 450px;
 	box-shadow: 0 2px 9px 0 rgb(0 0 0 / 13%);
 	border-radius: 5px;
 	position: absolute;
+}
+
+.popup-block-income {
+	position: relative;
+	background-color: #0491d1;
 }
 
 .create-input {
@@ -107,35 +100,6 @@
 .popup-block-income .popup-input-sub-error,
 .popup-block-goal .popup-input-sub-error {
 	color: #fce431;
-}
-
-.icon-picker-icon {
-	position: absolute;
-	top: 12px;
-	right: 30px;
-}
-
-.card-item-icon-income {
-	background-color: #03bded;
-}
-
-.card-item-icon {
-	display: flex;
-	position: relative;
-	width: 60px;
-	height: 60px;
-	border-radius: 50%;
-	overflow: hidden;
-	box-shadow: 0 2px 9px 0 rgb(0 0 0 / 13%);
-	margin: auto;
-	cursor: pointer;
-}
-
-.card-item-icon-miscellaneous {
-	width: 37px;
-	height: 37px;
-	background-repeat: no-repeat;
-	margin: auto;
 }
 
 .popup-input-number {

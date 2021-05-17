@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import authHeader from '../../services/auth-header.js';
+import Icons from './Icons';
 const API_URL = 'http://localhost:8080/';
 
 const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
@@ -12,6 +13,7 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 	};
 
 	const [inputValues, setInputValues] = useState({ name: '', amount: '' });
+	const [iconPressed, setIconPressed] = useState(false);
 	const [isInputFocused, setIsInputFocused] = useState(false);
 	let nameExists = currentUser[source].some(
 		object => object.name === inputValues.name
@@ -109,7 +111,10 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 										</div>
 									)}
 								</div>
-								<div className="icon-picker-icon">
+								<div
+									className="icon-picker-icon"
+									onClick={() => setIconPressed(!iconPressed)}
+								>
 									<div className={`card-item-icon card-item-icon-${source}`}>
 										<div className="card-item-icon-miscellaneous"></div>
 									</div>
@@ -149,6 +154,7 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 							)}
 						</div>
 					</div>
+					{iconPressed && <Icons source={source} />}
 				</div>
 			</div>
 		</div>
