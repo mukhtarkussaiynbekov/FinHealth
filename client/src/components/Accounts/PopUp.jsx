@@ -66,20 +66,29 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 	const onDelete = () => {
 		// TODO: check correctness of this function
 		// Make call to the server to delete existing data
-		console.log(currentUser[source][selectedIdx].name);
-		axios
-			.delete(
-				API_URL + source,
-				{
-					name: currentUser[source][selectedIdx].name
-				},
-				{ headers: authHeader() }
-			)
-			.then(response => {
+		var data = JSON.stringify({
+		"name": currentUser[source][selectedIdx].name
+		});
+
+		var config = {
+		method: 'delete',
+		url: 'http://localhost:8080/income',
+		headers: { 
+			...authHeader(),
+			'Content-Type': 'application/json'
+		},
+		data : data
+		};
+
+		axios(config)
+		.then(function (response) {
 				console.log(response);
 				updateStorage(response);
 				toggle();
-			});
+		})
+		.catch(function (error) {
+		console.log(error);
+		});
 	};
 
 	return (
