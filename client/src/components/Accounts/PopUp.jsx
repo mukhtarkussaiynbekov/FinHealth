@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import authHeader from '../../services/auth-header.js';
 import Icons from './Icons';
+import Icon from './Icon';
 const API_URL = 'http://localhost:8080/';
 
 const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
@@ -67,28 +68,28 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 		// TODO: check correctness of this function
 		// Make call to the server to delete existing data
 		var data = JSON.stringify({
-		"name": currentUser[source][selectedIdx].name
+			name: currentUser[source][selectedIdx].name
 		});
 
 		var config = {
-		method: 'delete',
-		url: 'http://localhost:8080/income',
-		headers: { 
-			...authHeader(),
-			'Content-Type': 'application/json'
-		},
-		data : data
+			method: 'delete',
+			url: 'http://localhost:8080/income',
+			headers: {
+				...authHeader(),
+				'Content-Type': 'application/json'
+			},
+			data: data
 		};
 
 		axios(config)
-		.then(function (response) {
+			.then(function (response) {
 				console.log(response);
 				updateStorage(response);
 				toggle();
-		})
-		.catch(function (error) {
-		console.log(error);
-		});
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
 	};
 
 	return (
@@ -124,9 +125,16 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 									className="icon-picker-icon"
 									onClick={() => setIconPressed(!iconPressed)}
 								>
-									<div className={`card-item-icon card-item-icon-${source}`}>
-										<div className="card-item-icon-miscellaneous"></div>
-									</div>
+									<Icon
+										key="FaCoins"
+										title="FaCoins"
+										icon="FaCoins"
+										source={source}
+									/>
+									{/* <div className={`card-item-icon card-item-icon-${source}`}>
+										<div className="card-item-icon-miscellaneous">
+										</div>
+									</div> */}
 								</div>
 							</div>
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import DeleteIcon from '@material-ui/icons/Delete';
-import TodayIcon from '@material-ui/icons/Today';
+import { RiDeleteBin5Fill, BiCalendarEvent } from 'react-icons/all';
+import { IconContext } from 'react-icons';
 
 const Transaction = () => {
 	return (
@@ -28,12 +28,18 @@ const Transaction = () => {
 								</div>
 							</div>
 							<div className="transaction-edit">
-								<div className="transaction-delete">
-									<DeleteIcon fontSize="small" />
-								</div>
-								<div className="transaction-calendar">
-									<TodayIcon fontSize="small" />
-								</div>
+								<IconContext.Provider
+									value={{
+										size: '1em'
+									}}
+								>
+									<div className="transaction-delete">
+										<RiDeleteBin5Fill />
+									</div>
+									<div className="transaction-calendar">
+										<BiCalendarEvent />
+									</div>
+								</IconContext.Provider>
 							</div>
 						</div>
 					</div>
