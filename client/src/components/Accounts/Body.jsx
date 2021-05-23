@@ -23,7 +23,16 @@ const Body = ({ source, currentUser }) => {
 					<div className="category-title" title={account.name}>
 						{account.name}
 					</div>
-					<div className="category-icon-wrapper">
+					<div
+						className="category-icon-wrapper"
+						onClick={() =>
+							setPopUpState({
+								isAdd: false,
+								popUpSeen: !popUpState.popUpSeen,
+								selectedIdx: idx
+							})
+						}
+					>
 						<div className="category-fill"></div>
 						<div className="category-icon">
 							<LocalAtmIcon fontSize="large" />
@@ -32,7 +41,7 @@ const Body = ({ source, currentUser }) => {
 					<div className="category-amount">
 						<div className="category-actual-amount">{account.amount}</div>
 					</div>
-					<div
+					{/* <div
 						className="category-edit"
 						onClick={() =>
 							setPopUpState({
@@ -43,7 +52,7 @@ const Body = ({ source, currentUser }) => {
 						}
 					>
 						<CreateIcon fontSize="small" />
-					</div>
+					</div> */}
 				</div>
 			))}
 
