@@ -2,9 +2,23 @@ import React from 'react';
 import Icon from './Icon';
 import { BsPlusCircle } from 'react-icons/all';
 import { IconContext } from 'react-icons';
+import { CATEGORY, INCOME } from '../../constants';
+import { formatter } from '../Profile';
+import { useSelector } from 'react-redux';
 
-const Body = ({ source, currentUser, setPopUpState }) => {
-	let accounts = currentUser[source] ? currentUser[source] : [];
+const Body = ({ source, setPopUpState, collection }) => {
+	const currentUser = useSelector(state => {
+		console.log(state);
+		return state;
+	});
+	let accounts = currentUser[collection] ? currentUser[collection] : [];
+
+	// Create our number formatter.
+	var numberFormatter = new Intl.NumberFormat('en-US', {
+		// These options are needed to round to whole numbers if that's what you want.
+		//minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+		maximumFractionDigits: 0 // (causes 2500.99 to be printed as $2,501)
+	});
 
 	return (
 		<div className="category-block-body">
@@ -34,7 +48,16 @@ const Body = ({ source, currentUser, setPopUpState }) => {
 						</div>
 					</div>
 					<div className="category-amount">
-						<div className="category-actual-amount">{account.amount}</div>
+						<div className="category-actual-amount">
+							{source === INCOME
+								? formatter.format(account.amount)
+								: formatter.format(account.balance)}
+						</div>
+						{source === CATEGORY && (
+							<div className="category-planned-amount">
+								{account.budget !== 0 && numberFormatter.format(account.budget)}
+							</div>
+						)}
 					</div>
 				</div>
 			))}

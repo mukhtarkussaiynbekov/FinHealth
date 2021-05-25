@@ -3,12 +3,26 @@ import axios from 'axios';
 import authHeader from '../../services/auth-header.js';
 import Icons from './Icons';
 import Icon from './Icon';
-import { CATEGORY, POPUP, messages } from '../../constants';
-import AuthService from '../../services/auth.service';
-const API_URL = 'http://localhost:8080/';
+import {
+	INCOME,
+	POPUP_TITLE,
+	POPUP_AMOUNT,
+	messages,
+	BALANCE,
+	BUDGET,
+	CHANGE_SOURCE,
+	ACCOUNT,
+	CATEGORY
+} from '../../constants';
+import { API_URL } from '../../services/auth.service';
+import { useSelector, useDispatch } from 'react-redux';
 
-const PopUp = ({ toggle, source, isAdd, selectedIdx }) => {
-	let currentUser = AuthService.getCurrentUser();
+const PopUp = ({ toggle, source, isAdd, selectedIdx, collection }) => {
+	const currentUser = useSelector(state => state);
+	const dispatch = useDispatch();
+
+	let selectedAccount =
+		selectedIdx !== -1 ? currentUser[collection][selectedIdx] : {};
 	const handleClick = event => {
 		setIsInputFocused(event.target.title === 'name');
 		if (event.target.className === 'popup-message') {
@@ -18,69 +32,103 @@ const PopUp = ({ toggle, source, isAdd, selectedIdx }) => {
 
 	const [inputValues, setInputValues] = useState({
 		name: '',
-		amount: '0',
-		balance: '0',
-		budget: '0'
+		amount: '',
+		balance: '',
+		budget: '',
+		...selectedAccount
 	});
 	const [iconPressed, setIconPressed] = useState(false);
 	const [isInputFocused, setIsInputFocused] = useState(false);
-	let accounts = currentUser[source] ? currentUser[source] : [];
-	let nameExists = accounts.some(object => object.name === inputValues.name);
+	let accounts = currentUser[collection] ? currentUser[collection] : [];
+	let nameExists = accounts.some(
+		(object, index) => object.name === inputValues.name && selectedIdx !== index
+	);
 
 	const updateInputValues = event => {
 		let title = event.target.title;
 		let newValue = event.target.value;
+		console.log(newValue);
 		setInputValues({ ...inputValues, [title]: newValue });
 	};
 
-	const updateStorage = response => {
-		currentUser[source] = response.data.field;
-		localStorage.setItem('user', JSON.stringify(currentUser));
+	const getSaveValues = () => {
+		if (source === INCOME) {
+			return {
+				name: inputValues.name,
+				amount: inputValues.amount === '' ? 0 : parseInt(inputValues.amount)
+			};
+		} else if (source === ACCOUNT) {
+			return {
+				name: inputValues.name,
+				balance: inputValues.balance === '' ? 0 : parseInt(inputValues.balance)
+			};
+		} else if (source === CATEGORY) {
+			return {
+				name: inputValues.name,
+				budget: inputValues.budget === '' ? 0 : parseInt(inputValues.budget)
+			};
+		}
 	};
 
 	const onAdd = () => {
-		if (inputValues.name && !nameExists) {
+		let saveValues = getSaveValues();
+
+		if (saveValues.name && !nameExists) {
 			// Make call to the server to add new data
 			axios
-				.post(API_URL + source, inputValues, { headers: authHeader() })
+				.post(API_URL + source, saveValues, { headers: authHeader() })
 				.then(response => {
-					updateStorage(response);
+					dispatch({
+						type: CHANGE_SOURCE,
+						payload: { collection: collection, data: response.data.field }
+					});
 					toggle();
 				});
 		}
 	};
 
 	const onChange = () => {
-		// TODO: change below lines to correctly change data.
+		let saveValues = getSaveValues();
+
 		// Currently it just adds new data
-		if (inputValues.name) {
+		if (saveValues.name && !nameExists) {
 			// Make call to the server to change existing data
-			axios
-				.post(
-					API_URL + source,
-					{
-						name: inputValues.name,
-						amount: inputValues.amount
-					},
-					{ headers: authHeader() }
-				)
+			var config = {
+				method: 'put',
+				url: `http://localhost:8080/${source}`,
+				headers: {
+					...authHeader(),
+					'Content-Type': 'application/json'
+				},
+				data: {
+					prevName: selectedAccount.name,
+					val: { selectedAccount, ...saveValues }
+				}
+			};
+
+			axios(config)
 				.then(response => {
-					updateStorage(response);
+					dispatch({
+						type: CHANGE_SOURCE,
+						payload: { collection: collection, data: response.data.field }
+					});
 					toggle();
+				})
+				.catch(error => {
+					console.log(error);
 				});
 		}
 	};
 
 	const onDelete = () => {
-		// TODO: check correctness of this function
 		// Make call to the server to delete existing data
 		var data = JSON.stringify({
-			name: currentUser[source][selectedIdx].name
+			name: currentUser[collection][selectedIdx].name
 		});
 
 		var config = {
 			method: 'delete',
-			url: 'http://localhost:8080/income',
+			url: `http://localhost:8080/${source}`,
 			headers: {
 				...authHeader(),
 				'Content-Type': 'application/json'
@@ -89,12 +137,14 @@ const PopUp = ({ toggle, source, isAdd, selectedIdx }) => {
 		};
 
 		axios(config)
-			.then(function (response) {
-				console.log(response);
-				updateStorage(response);
+			.then(response => {
+				dispatch({
+					type: CHANGE_SOURCE,
+					payload: { collection: collection, data: response.data.field }
+				});
 				toggle();
 			})
-			.catch(function (error) {
+			.catch(error => {
 				console.log(error);
 			});
 	};
@@ -109,7 +159,7 @@ const PopUp = ({ toggle, source, isAdd, selectedIdx }) => {
 								<div className="form-item">
 									<input
 										className="popup-input"
-										placeholder={`${messages[POPUP][source]} *`}
+										placeholder={`${messages[POPUP_TITLE][source]} *`}
 										title="name"
 										value={inputValues.name}
 										onChange={updateInputValues}
@@ -145,15 +195,19 @@ const PopUp = ({ toggle, source, isAdd, selectedIdx }) => {
 								</div>
 							</div>
 
-							{source === CATEGORY && (
+							{source !== INCOME && (
 								<div className="create-input create-input-sep">
 									<div className="form-item">
 										<input
 											className="popup-input popup-input-number"
-											placeholder="Planning to spend per month"
-											title="amount"
+											placeholder={`${messages[POPUP_AMOUNT][source]} *`}
+											title={source === ACCOUNT ? BALANCE : BUDGET}
 											type="number"
-											value={inputValues.amount}
+											value={
+												source === ACCOUNT
+													? inputValues.balance
+													: inputValues.budget
+											}
 											onChange={updateInputValues}
 										/>
 									</div>

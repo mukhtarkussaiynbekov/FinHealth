@@ -184,3 +184,8 @@
 	position: relative;
 	height: 24px;
 }
+
+.category-planned-amount {
+	font-size: 13px;
+	color: #9a9898;
+}
