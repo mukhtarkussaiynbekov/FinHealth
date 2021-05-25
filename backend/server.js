@@ -61,6 +61,7 @@ require('./app/routes/transaction.routes')(app);
 require('./app/routes/category.routes')(app);
 require('./app/routes/account.routes')(app);
 require('./app/routes/income.routes')(app);
+require('./app/routes/misc.routes')(app);
 require('./app/routes/test')(app);
 const PORT = process.env.PORT || 8080;
 
