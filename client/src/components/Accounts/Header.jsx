@@ -1,9 +1,20 @@
 import React from 'react';
+import { ACCOUNT, CATEGORY, HEADER, INCOME, messages } from '../../constants';
 
 const Header = ({ source, currentUser }) => {
 	const reducer = property => (accumulator, currentValue) =>
 		accumulator + parseInt(currentValue[property]);
-	let totalAccumulated = currentUser[source].reduce(reducer('amount'), 0);
+	let totalAccumulated = currentUser[source]
+		? currentUser[source].reduce(
+				reducer(source === INCOME ? 'amount' : 'balance'),
+				0
+		  )
+		: 0;
+
+	let totalPlanned =
+		source === CATEGORY && currentUser[source]
+			? currentUser[source].reduce(reducer('budget'), 0)
+			: 0;
 
 	// Create our number formatter.
 	var formatter = new Intl.NumberFormat('en-US', {
@@ -19,19 +30,27 @@ const Header = ({ source, currentUser }) => {
 		<div className="category-block-header">
 			<div className="category-block-title">
 				<div className="category-block-name">{source}</div>
-				<div className="category-block-date">01/25/2021-02/24/2021</div>
+				{source !== ACCOUNT && (
+					<div className="category-block-date">01/25/2021-02/24/2021</div>
+				)}
 			</div>
 			<div className="category-block-stats">
 				<div className="category-block-stats-item">
 					<div className="category-block-stats-amount">
 						{formatter.format(totalAccumulated)}
 					</div>
-					<div className="category-block-stats-title">received</div>
+					<div className="category-block-stats-title">
+						{messages[HEADER][source]}
+					</div>
 				</div>
-				<div className="category-block-stats-item">
-					<div className="category-block-stats-amount">575,000</div>
-					<div className="category-block-stats-title">budget</div>
-				</div>
+				{source === CATEGORY && (
+					<div className="category-block-stats-item">
+						<div className="category-block-stats-amount">
+							{formatter.format(totalPlanned)}
+						</div>
+						<div className="category-block-stats-title">planned</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);

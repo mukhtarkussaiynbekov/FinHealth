@@ -1,14 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { ACCOUNT, CATEGORY, INCOME } from '../constants';
 import Accounts from './Accounts/Accounts';
 import Transactions from './Transactions/Transactions';
+import PopUp from './Accounts/PopUp';
 
 const Profile = () => {
+	const [popUpState, setPopUpState] = useState({
+		popUpSeen: false,
+		isAdd: false,
+		selectedIdx: -1,
+		source: [INCOME]
+	});
+
+	const togglePop = () => {
+		setPopUpState({ ...popUpState, popUpSeen: !popUpState.popUpSeen });
+	};
+
 	return (
 		<div className="data-container container-dashboard">
 			<div className="dashboard">
 				<div className="dashboard-body">
 					<div className="dashboard-column" style={{ minWidth: 540 }}>
-						<Accounts source={'income'} />
+						<Accounts source={INCOME} setPopUpState={setPopUpState} />
+						<Accounts source={ACCOUNT} setPopUpState={setPopUpState} />
+						<Accounts source={CATEGORY} setPopUpState={setPopUpState} />
+						{popUpState.popUpSeen && (
+							<PopUp
+								toggle={togglePop}
+								source={popUpState.source}
+								isAdd={popUpState.isAdd}
+								selectedIdx={popUpState.selectedIdx}
+							/>
+						)}
 					</div>
 					<div className="dashboard-column">
 						<Transactions />

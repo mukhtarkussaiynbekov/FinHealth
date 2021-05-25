@@ -1,20 +1,10 @@
-import React, { useState } from 'react';
-import PopUp from './PopUp';
+import React from 'react';
 import Icon from './Icon';
 import { BsPlusCircle } from 'react-icons/all';
 import { IconContext } from 'react-icons';
 
-const Body = ({ source, currentUser }) => {
-	let accounts = currentUser[source];
-	const [popUpState, setPopUpState] = useState({
-		popUpSeen: false,
-		isAdd: false,
-		selectedIdx: -1
-	});
-
-	const togglePop = () => {
-		setPopUpState({ ...popUpState, popUpSeen: !popUpState.popUpSeen });
-	};
+const Body = ({ source, currentUser, setPopUpState }) => {
+	let accounts = currentUser[source] ? currentUser[source] : [];
 
 	return (
 		<div className="category-block-body">
@@ -28,8 +18,9 @@ const Body = ({ source, currentUser }) => {
 						onClick={() =>
 							setPopUpState({
 								isAdd: false,
-								popUpSeen: !popUpState.popUpSeen,
-								selectedIdx: idx
+								popUpSeen: true,
+								selectedIdx: idx,
+								source: source
 							})
 						}
 					>
@@ -40,24 +31,11 @@ const Body = ({ source, currentUser }) => {
 								icon="FaCoins"
 								source={source}
 							/>
-							{/* <div className="category-icon"></div> */}
 						</div>
 					</div>
 					<div className="category-amount">
 						<div className="category-actual-amount">{account.amount}</div>
 					</div>
-					{/* <div
-						className="category-edit"
-						onClick={() =>
-							setPopUpState({
-								isAdd: false,
-								popUpSeen: !popUpState.popUpSeen,
-								selectedIdx: idx
-							})
-						}
-					>
-						<CreateIcon fontSize="small" />
-					</div> */}
 				</div>
 			))}
 
@@ -68,8 +46,9 @@ const Body = ({ source, currentUser }) => {
 						onClick={() =>
 							setPopUpState({
 								isAdd: true,
-								popUpSeen: !popUpState.popUpSeen,
-								selectedIdx: -1
+								popUpSeen: true,
+								selectedIdx: -1,
+								source: source
 							})
 						}
 					>
@@ -85,15 +64,6 @@ const Body = ({ source, currentUser }) => {
 					</div>
 				</div>
 			</div>
-			{popUpState.popUpSeen && (
-				<PopUp
-					toggle={togglePop}
-					source={source}
-					currentUser={currentUser}
-					isAdd={popUpState.isAdd}
-					selectedIdx={popUpState.selectedIdx}
-				/>
-			)}
 		</div>
 	);
 };
