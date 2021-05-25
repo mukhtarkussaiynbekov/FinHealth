@@ -26,7 +26,7 @@ const createField = (req, res, field) => {
                 iconName: req.body.iconName
             });
         }
-        else if (field === "accounts") {
+        else if (field === "account") {
             collections = user.accounts;
             collections.push({
                 name: req.body.name,
@@ -55,7 +55,7 @@ const deleteField = (req, res, field) => {
         let collections = [];
         if (field === "income") collections = user.income;
         else if (field === "category") collections = user.categories;
-        else if (field === "accounts") collections = user.accounts;
+        else if (field === "account") collections = user.accounts;
 
         for (let i = 0; i < collections.length; i++) {
             if (collections[i].name === req.body.name) {
@@ -83,7 +83,7 @@ const changeField = (req, res, field) => {
         let collections = [];
         if (field === "income") collections = user.income;
         else if (field === "category") collections = user.categories;
-        else if (field === "accounts") collections = user.accounts;
+        else if (field === "account") collections = user.accounts;
 
         for (let i = 0; i < collections.length; i++) {
             if (collections[i].name == req.body.prevName) {
