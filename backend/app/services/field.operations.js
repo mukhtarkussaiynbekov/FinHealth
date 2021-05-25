@@ -16,11 +16,11 @@ const createField = (req, res, field) => {
                 amount: req.body.amount
             });
         }
-        else if (field === "categories") {
+        else if (field === "category") {
             collections = user.categories;
             collections.push({
                 name: req.body.name,
-                balance: req.body.budget,
+                balance: 0,
                 budget: req.body.budget
             });
         }
@@ -70,7 +70,26 @@ const deleteField = (req, res, field) => {
         res.status(404).send({ message: "No such field exists" });
     })
 }
+/*
+const changeField = (req, res, field) => {
+    User.findById(req.userId, (err, user) => {
+        if (err || !user) {
+            res.status(500).send({ message: err });
+            return;
+        }
+        let collections = [];
+        if (field === "income") collections = user.income;
+        else if (field === "categories") collections = user.categories;
+        else if (field === "accounts") collections = user.accounts;
 
+        for (let i = 0; i < collections.length; i++) {
+            if (collections[i].name == req.body.name) {
+                collections[i]
+            }
+        }
+    })
+}
+*/
 module.exports = {
     createField,
     deleteField

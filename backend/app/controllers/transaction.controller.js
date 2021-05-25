@@ -46,7 +46,7 @@ const createTransaction = async (req, res) => {
             return;
         }
         user.accounts[accountIndex].balance -= transaction.transaction;
-        user.categories[categoryIndex].balance -= transaction.transaction;
+        user.categories[categoryIndex].balance += transaction.transaction;
         user.save().then(result => {
             transaction.save().then(result => {
                 res.status(200).send({ message: "Transaction was saved successfully " });
