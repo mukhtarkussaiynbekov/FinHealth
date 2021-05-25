@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import authHeader from '../../services/auth-header.js';
 import Icons from './Icons';
+import Icon from './Icon';
+import { CATEGORY, POPUP, messages } from '../../constants';
+import AuthService from '../../services/auth.service';
 const API_URL = 'http://localhost:8080/';
 
-const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
+const PopUp = ({ toggle, source, isAdd, selectedIdx }) => {
+	let currentUser = AuthService.getCurrentUser();
 	const handleClick = event => {
 		setIsInputFocused(event.target.title === 'name');
 		if (event.target.className === 'popup-message') {
@@ -12,12 +16,16 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 		}
 	};
 
-	const [inputValues, setInputValues] = useState({ name: '', amount: '' });
+	const [inputValues, setInputValues] = useState({
+		name: '',
+		amount: '0',
+		balance: '0',
+		budget: '0'
+	});
 	const [iconPressed, setIconPressed] = useState(false);
 	const [isInputFocused, setIsInputFocused] = useState(false);
-	let nameExists = currentUser[source].some(
-		object => object.name === inputValues.name
-	);
+	let accounts = currentUser[source] ? currentUser[source] : [];
+	let nameExists = accounts.some(object => object.name === inputValues.name);
 
 	const updateInputValues = event => {
 		let title = event.target.title;
@@ -67,28 +75,28 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 		// TODO: check correctness of this function
 		// Make call to the server to delete existing data
 		var data = JSON.stringify({
-		"name": currentUser[source][selectedIdx].name
+			name: currentUser[source][selectedIdx].name
 		});
 
 		var config = {
-		method: 'delete',
-		url: 'http://localhost:8080/income',
-		headers: { 
-			...authHeader(),
-			'Content-Type': 'application/json'
-		},
-		data : data
+			method: 'delete',
+			url: 'http://localhost:8080/income',
+			headers: {
+				...authHeader(),
+				'Content-Type': 'application/json'
+			},
+			data: data
 		};
 
 		axios(config)
-		.then(function (response) {
+			.then(function (response) {
 				console.log(response);
 				updateStorage(response);
 				toggle();
-		})
-		.catch(function (error) {
-		console.log(error);
-		});
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
 	};
 
 	return (
@@ -101,7 +109,7 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 								<div className="form-item">
 									<input
 										className="popup-input"
-										placeholder="Where does amount come from? *"
+										placeholder={`${messages[POPUP][source]} *`}
 										title="name"
 										value={inputValues.name}
 										onChange={updateInputValues}
@@ -116,7 +124,7 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 									)}
 									{inputValues.name === '' && !isInputFocused && (
 										<div className="popup-input-sub popup-input-sub-error">
-											* Enter {source} source title
+											* Enter {source} title
 										</div>
 									)}
 								</div>
@@ -124,24 +132,33 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 									className="icon-picker-icon"
 									onClick={() => setIconPressed(!iconPressed)}
 								>
-									<div className={`card-item-icon card-item-icon-${source}`}>
-										<div className="card-item-icon-miscellaneous"></div>
-									</div>
+									<Icon
+										key="FaCoins"
+										title="FaCoins"
+										icon="FaCoins"
+										source={source}
+									/>
+									{/* <div className={`card-item-icon card-item-icon-${source}`}>
+										<div className="card-item-icon-miscellaneous">
+										</div>
+									</div> */}
 								</div>
 							</div>
 
-							<div className="create-input create-input-sep">
-								<div className="form-item">
-									<input
-										className="popup-input popup-input-number"
-										placeholder="Planning to receive per month"
-										title="amount"
-										type="number"
-										value={inputValues.amount}
-										onChange={updateInputValues}
-									/>
+							{source === CATEGORY && (
+								<div className="create-input create-input-sep">
+									<div className="form-item">
+										<input
+											className="popup-input popup-input-number"
+											placeholder="Planning to spend per month"
+											title="amount"
+											type="number"
+											value={inputValues.amount}
+											onChange={updateInputValues}
+										/>
+									</div>
 								</div>
-							</div>
+							)}
 
 							<div className="form-action">
 								<input
@@ -156,7 +173,7 @@ const PopUp = ({ toggle, source, currentUser, isAdd, selectedIdx }) => {
 									<input
 										type="button"
 										value="delete"
-										className="btn-delete"
+										className={`btn-delete btn-delete-${source}`}
 										onClick={onDelete}
 									/>
 								</div>

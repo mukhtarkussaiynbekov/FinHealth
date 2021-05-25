@@ -77,10 +77,6 @@
 	color: #4f4f4f;
 }
 
-.category-income .category-icon-wrapper {
-	background-color: #0491d1;
-}
-
 .category-icon-wrapper {
 	position: relative;
 	margin: 10px 0;
@@ -88,22 +84,26 @@
 	height: 60px;
 	overflow: hidden;
 	border-radius: 50%;
-	background: #c1c5c9;
+	background: white;
 	cursor: pointer;
 }
 
 .category-income .category-icon-wrapper,
 .category-account .category-icon-wrapper,
-.category-bankaccount .category-icon-wrapper,
-.category-debtaccount .category-icon-wrapper,
-.category-expense .category-icon-wrapper,
-.category-goal .category-icon-wrapper,
-.category-classicgoal .category-icon-wrapper {
+.category-category .category-icon-wrapper {
 	box-shadow: 0 2px 9px 0 rgb(0 0 0 / 13%);
 }
 
 .category-income .category-fill {
 	background-color: #03bded;
+}
+
+.category-account .category-fill {
+	background-color: #fc0;
+}
+
+.category-category .category-fill {
+	background-color: #0ac38e;
 }
 
 .category-fill {
@@ -124,6 +124,17 @@
 	margin: auto;
 }
 
+.category-icon-add {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin: auto;
+}
+.category-icon-add:hover {
+	background-color: rgb(214, 214, 214);
+}
+
 .category-amount {
 	padding: 4px 0;
 	height: 40px;
@@ -133,6 +144,14 @@
 
 .category-income .category-actual-amount {
 	color: #0a93d1;
+}
+
+.category-account .category-actual-amount {
+	color: #f9a825;
+}
+
+.category-category .category-actual-amount {
+	color: #0ac38e;
 }
 
 .category-actual-amount {

@@ -1,16 +1,20 @@
 import React from 'react';
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { MdMonetizationOn } from 'react-icons/all';
+import { IconContext } from 'react-icons';
 
 const FinHealthHeader = ({ email, onLogOut }) => {
 	return (
 		<header className="header">
 			<div className="header_container">
 				<div className="header_left">
-					<MonetizationOnIcon
-						className="header_logo"
-						style={{ fontSize: '50px' }}
-					/>
+					<IconContext.Provider
+						value={{
+							size: '4em',
+							className: 'header_logo'
+						}}
+					>
+						<MdMonetizationOn />
+					</IconContext.Provider>
 					<div className="header_title">FinHealth</div>
 				</div>
 				<div className="header_right">
@@ -25,9 +29,9 @@ const FinHealthHeader = ({ email, onLogOut }) => {
 							{email}
 							{/* <div class="underbar"></div> */}
 						</div>
-						<div className="header_dropdown-menu profile-dropdown-menu">
+						{/* <div className="header_dropdown-menu profile-dropdown-menu">
 							<AccountCircleIcon fontSize="large" />
-						</div>
+						</div> */}
 						<a href="/login" className="nav-link" onClick={onLogOut}>
 							LogOut
 						</a>

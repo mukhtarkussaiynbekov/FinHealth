@@ -12,8 +12,19 @@
 	padding: 15px 20px 0 20px;
 }
 
-.card-list .card-item-icon-income:hover {
-	background-color: #03bded;
+.card-list .card-item-icon-income:hover,
+.card-item-icon-income:hover {
+	background-color: rgba(85, 192, 237, 1);
+}
+
+.card-list .card-item-icon-account:hover,
+.card-item-icon-account:hover {
+	background-color: rgba(250, 225, 85, 1);
+}
+
+.card-list .card-item-icon-category:hover,
+.card-item-icon-category:hover {
+	background-color: rgba(105, 215, 170, 1);
 }
 
 .icon-picker-wrapper .card-item-icon {
@@ -47,6 +58,14 @@
 
 .card-item-icon-income {
 	background-color: #03bded;
+}
+
+.card-item-icon-account {
+	background-color: #fc0;
+}
+
+.card-item-icon-category {
+	background-color: #0ac38e;
 }
 
 .card-item-icon-miscellaneous {
