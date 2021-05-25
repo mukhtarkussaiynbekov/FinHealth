@@ -1,4 +1,4 @@
-const { createIncome, deleteIncome } = require("../controllers/income.controller.js");
+const { createIncome, deleteIncome, changeIncome } = require("../controllers/income.controller.js");
 const { authJwt } = require("../middlewares/index.js");
  
 module.exports = function (app) {
@@ -13,4 +13,5 @@ module.exports = function (app) {
 
     app.post("/income",[authJwt.verifyToken], createIncome);
     app.delete("/income", [authJwt.verifyToken], deleteIncome);
+    app.put("/income", [authJwt.verifyToken], changeIncome);
 };

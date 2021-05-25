@@ -1,4 +1,4 @@
-const { createCategory, deleteCategory } = require("../controllers/category.controller.js");
+const { createCategory, deleteCategory, changeCategory } = require("../controllers/category.controller.js");
 const { authJwt } = require("../middlewares/index.js");
 
  
@@ -13,4 +13,5 @@ module.exports = function(app) {
 
     app.post("/category",[authJwt.verifyToken], createCategory);
     app.delete("/category", [authJwt.verifyToken], deleteCategory);
+    app.put("/category", [authJwt.verifyToken], changeCategory);
 };

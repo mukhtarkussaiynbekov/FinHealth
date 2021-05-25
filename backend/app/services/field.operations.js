@@ -51,7 +51,7 @@ const deleteField = (req, res, field) => {
         }
         let collections = [];
         if (field === "income") collections = user.income;
-        else if (field === "categories") collections = user.categories;
+        else if (field === "category") collections = user.categories;
         else if (field === "accounts") collections = user.accounts;
 
         for (let i = 0; i < collections.length; i++) {
@@ -70,7 +70,7 @@ const deleteField = (req, res, field) => {
         res.status(404).send({ message: "No such field exists" });
     })
 }
-/*
+
 const changeField = (req, res, field) => {
     User.findById(req.userId, (err, user) => {
         if (err || !user) {
@@ -79,18 +79,27 @@ const changeField = (req, res, field) => {
         }
         let collections = [];
         if (field === "income") collections = user.income;
-        else if (field === "categories") collections = user.categories;
+        else if (field === "category") collections = user.categories;
         else if (field === "accounts") collections = user.accounts;
 
         for (let i = 0; i < collections.length; i++) {
-            if (collections[i].name == req.body.name) {
-                collections[i]
+            if (collections[i].name == req.body.prevName) {
+                collections[i] = req.body.val;
+                user.save(err => {
+                    if (err) {
+                        res.status(500).send({ message: err });
+                        return;
+                    }
+                    res.status(200).send({ message: `Successfully changed ${field} ${req.body.prevName}`, field: collections });
+                });
+                return;
             }
         }
+        res.status(404).send({ message: "No such field exists" });
     })
 }
-*/
 module.exports = {
     createField,
-    deleteField
+    deleteField,
+    changeField
 };
