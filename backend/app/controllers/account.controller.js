@@ -5,15 +5,15 @@ const Role = db.role;
 const { createField, deleteField, changeField } = require("../services/field.operations.js");
 
 const createAccount = (req, res) => {
-    createField(req, res, "accounts");
+    createField(req, res, "account");
 }
 
 const deleteAccount = (req, res) => {
-    deleteField(req, res, "accounts");
+    deleteField(req, res, "account");
 }
 
 const changeAccount = (req, res) => {
-    changeField(req, res, "accounts");
+    changeField(req, res, "account");
 }
 module.exports = {
     createAccount,
