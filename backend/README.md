@@ -1,17 +1,20 @@
 ## Accounts
 
 **POST** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/account {name: String, balance: Number} <br>
-**DELETE** &nbsp;&nbsp;/account {name: String}
+**DELETE** &nbsp;&nbsp;/account {name: String} <br>
+**PUT** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/account {prevName: String, val: {name: String, balance: Number}} <br>
 
 ## Categories
 
 **POST** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/category {name: String, balance: Number, budget: Number} <br>
-**DELETE** &nbsp;&nbsp;/category {name: String}
+**DELETE** &nbsp;&nbsp;/category {name: String} <br>
+**PUT** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/category {prevName: String, val: {name: String, balance: Number, budget: Number}} <br>
 
 ## Income
 
 **POST** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/income {name: String, amount: Number} <br>
-**DELETE** &nbsp;&nbsp;/income {name: String}
+**DELETE** &nbsp;&nbsp;/income {name: String} <br>
+**PUT** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/account {prevName: String, val: {name: String, amount: Number}} <br>
 
 ## Transactions
 
