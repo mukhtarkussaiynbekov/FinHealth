@@ -13,7 +13,8 @@ const createField = (req, res, field) => {
             collections = user.income;
             collections.push({
                 name: req.body.name,
-                amount: req.body.amount
+                amount: req.body.amount,
+                iconName: req.body.iconName
             });
         }
         else if (field === "category") {
@@ -21,14 +22,16 @@ const createField = (req, res, field) => {
             collections.push({
                 name: req.body.name,
                 balance: 0,
-                budget: req.body.budget
+                budget: req.body.budget,
+                iconName: req.body.iconName
             });
         }
         else if (field === "accounts") {
             collections = user.accounts;
             collections.push({
                 name: req.body.name,
-                balance: req.body.balance
+                balance: req.body.balance,
+                iconName: req.body.iconName
             });            
         }
 

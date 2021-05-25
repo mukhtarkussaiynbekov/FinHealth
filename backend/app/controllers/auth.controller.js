@@ -97,14 +97,14 @@ User.findOne({
         authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
     }
     for (let i = 0; i < user.accounts.length; i++) {
-        accounts.push({ name: user.accounts[i].name, balance: user.accounts[i].balance });
+        accounts.push({ name: user.accounts[i].name, balance: user.accounts[i].balance, iconName: user.accounts[i].iconName });
     }
     for (let i = 0; i < user.categories.length; i++) {
-        categories.push({ name: user.categories[i].name, balance: user.categories[i].balance, budget: user.categories[i].budget });
+        categories.push({ name: user.categories[i].name, balance: user.categories[i].balance, budget: user.categories[i].budget, iconName: user.accounts[i].iconName });
     }   
     
     for (let i = 0; i < user.income.length; i++) {
-        income.push({ name: user.income[i].name, amount: user.income[i].amount });
+        income.push({ name: user.income[i].name, amount: user.income[i].amount, iconName: user.accounts[i].iconName });
     }
     
     res.status(200).send({

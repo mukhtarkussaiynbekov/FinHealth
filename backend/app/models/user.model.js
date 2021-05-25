@@ -14,20 +14,23 @@ const User = mongoose.model(
         income: [
             {
                 name: String,
-                amount: Number
+                amount: Number,
+                iconName: String
             }
         ],
         accounts: [
             {
                 name: String,
-                balance: Number
+                balance: Number,
+                iconName: String
             }
         ],
         categories: [
             {
                 name: String,
                 balance: Number,
-                budget: Number
+                budget: Number,
+                iconName: String
             }
         ]
     })
