@@ -100,11 +100,11 @@ User.findOne({
         accounts.push({ name: user.accounts[i].name, balance: user.accounts[i].balance, iconName: user.accounts[i].iconName });
     }
     for (let i = 0; i < user.categories.length; i++) {
-        categories.push({ name: user.categories[i].name, balance: user.categories[i].balance, budget: user.categories[i].budget, iconName: user.accounts[i].iconName });
+        categories.push({ name: user.categories[i].name, balance: user.categories[i].balance, budget: user.categories[i].budget, iconName: user.categories[i].iconName });
     }   
     
     for (let i = 0; i < user.income.length; i++) {
-        income.push({ name: user.income[i].name, amount: user.income[i].amount, iconName: user.accounts[i].iconName });
+        income.push({ name: user.income[i].name, amount: user.income[i].amount, iconName: user.income[i].iconName });
     }
     
     res.status(200).send({
