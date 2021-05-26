@@ -45,6 +45,7 @@ const Profile = ({ currentUser, authChanger }) => {
 							setPopUpState={setPopUpState}
 							currentUser={currentUser}
 							authChanger={authChanger}
+							renderLimit={4}
 						/>
 						<Accounts
 							source={ACCOUNT}
@@ -52,6 +53,7 @@ const Profile = ({ currentUser, authChanger }) => {
 							setPopUpState={setPopUpState}
 							currentUser={currentUser}
 							authChanger={authChanger}
+							renderLimit={4}
 						/>
 						<Accounts
 							source={CATEGORY}
@@ -59,6 +61,7 @@ const Profile = ({ currentUser, authChanger }) => {
 							setPopUpState={setPopUpState}
 							currentUser={currentUser}
 							authChanger={authChanger}
+							renderLimit={8}
 						/>
 						{popUpState.popUpSeen && (
 							<PopUp

@@ -7,7 +7,8 @@ const Accounts = ({
 	setPopUpState,
 	currentUser,
 	collection,
-	authChanger
+	authChanger,
+	renderLimit
 }) => {
 	return (
 		<div className="accounts-container">
@@ -22,6 +23,7 @@ const Accounts = ({
 				currentUser={currentUser}
 				setPopUpState={setPopUpState}
 				collection={collection}
+				renderLimit={renderLimit}
 			/>
 		</div>
 	);
