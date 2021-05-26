@@ -97,7 +97,7 @@ const App = () => {
 				</nav>
 			)}
 
-			<div className="container mt-3">
+			<div>
 				<Switch>
 					<ProtectedRoute
 						exact

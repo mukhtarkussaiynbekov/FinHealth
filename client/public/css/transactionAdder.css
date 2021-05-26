@@ -1,0 +1,76 @@
+.dashboard-top {
+	width: 100%;
+}
+
+.add-transaction-wrapper {
+	z-index: 10;
+}
+
+.add-transaction {
+	width: 100%;
+	height: 66px;
+	box-shadow: 2px 2px 9px rgb(0 0 0 / 13%);
+	background-color: #fff;
+	position: relative;
+	border-radius: 4px;
+	line-height: 66px;
+	padding: 0 86px 0 20px;
+	font-weight: 300;
+	color: #757474;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+	font-size: 16px;
+	z-index: 3;
+	font-family: 'Roboto';
+	font-weight: 300;
+}
+
+.add-transaction-text {
+	margin: 0 5px;
+}
+
+.add-transaction-placeholder {
+	margin: 0;
+}
+
+.add-transaction-text,
+.add-transaction-step,
+.add-transaction-date,
+.add-transaction-debtor,
+.add-transaction-amount-component,
+.add-transaction .ck-autocomplete-wrapper {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.add-transaction-submit {
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 100%;
+	width: 66px;
+	background-color: #0eac7f;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	cursor: pointer;
+}
+
+.add-transaction-submit[disabled] {
+	cursor: default;
+	opacity: 0.5;
+}
+
+.add-transaction-submit::before {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -11px;
+	margin-top: -11px;
+	background-position: -240px -138px;
+	width: 22px;
+	height: 22px;
+	background-repeat: no-repeat;
+	content: '';
+}

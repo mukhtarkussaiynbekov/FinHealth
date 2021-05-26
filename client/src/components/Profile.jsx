@@ -10,6 +10,7 @@ import {
 import Accounts from './Accounts/Accounts';
 import Transactions from './Transactions/Transactions';
 import PopUp from './Accounts/PopUp';
+import TransactionAdder from './TransactionAdder';
 
 // Create our number formatter.
 export const formatter = new Intl.NumberFormat('en-US', {
@@ -36,7 +37,7 @@ const Profile = ({ currentUser, authChanger }) => {
 	return (
 		<div className="data-container container-dashboard">
 			<div className="dashboard">
-				{/* {currentUser && ( */}
+				<TransactionAdder />
 				<div className="dashboard-body">
 					<div className="dashboard-column" style={{ minWidth: 540 }}>
 						<Accounts
@@ -79,7 +80,6 @@ const Profile = ({ currentUser, authChanger }) => {
 						<Transactions />
 					</div>
 				</div>
-				{/* )} */}
 			</div>
 		</div>
 	);
