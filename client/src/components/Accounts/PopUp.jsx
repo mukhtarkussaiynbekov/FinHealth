@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import authHeader from '../../services/auth-header.js';
 import Icons from './Icons';
-import Icon from './Icon';
+import Icon, { icons } from './Icon';
 import {
 	INCOME,
 	POPUP_TITLE,
@@ -36,6 +36,7 @@ const PopUp = ({
 
 	const [inputValues, setInputValues] = useState({
 		name: '',
+		iconName: 'FaCoins',
 		amount: '',
 		balance: '',
 		budget: '',
@@ -54,23 +55,26 @@ const PopUp = ({
 		setInputValues({ ...inputValues, [title]: newValue });
 	};
 
-	const getSaveValues = () => {
-		if (source === INCOME) {
-			return {
-				name: inputValues.name,
-				amount: inputValues.amount === '' ? 0 : parseInt(inputValues.amount)
-			};
-		} else if (source === ACCOUNT) {
-			return {
-				name: inputValues.name,
-				balance: inputValues.balance === '' ? 0 : parseInt(inputValues.balance)
-			};
-		} else if (source === CATEGORY) {
-			return {
-				name: inputValues.name,
-				budget: inputValues.budget === '' ? 0 : parseInt(inputValues.budget)
-			};
+	const updateIconName = event => {
+		let selectedIconName = event.currentTarget.title;
+		if (Object.keys(icons).includes(selectedIconName)) {
+			setInputValues({ ...inputValues, iconName: selectedIconName });
 		}
+	};
+
+	const getSaveValues = () => {
+		let saveValues = { name: inputValues.name, iconName: inputValues.iconName };
+		if (source === INCOME) {
+			saveValues.amount =
+				inputValues.amount === '' ? 0 : parseInt(inputValues.amount);
+		} else if (source === ACCOUNT) {
+			saveValues.balance =
+				inputValues.balance === '' ? 0 : parseInt(inputValues.balance);
+		} else if (source === CATEGORY) {
+			saveValues.budget =
+				inputValues.budget === '' ? 0 : parseInt(inputValues.budget);
+		}
+		return saveValues;
 	};
 
 	const onAdd = () => {
@@ -175,15 +179,11 @@ const PopUp = ({
 										</div>
 									)}
 								</div>
-								<div
-									className="icon-picker-icon"
-									onClick={() => setIconPressed(!iconPressed)}
-								>
+								<div className="icon-picker-icon">
 									<Icon
-										key="FaCoins"
-										title="FaCoins"
-										icon="FaCoins"
+										iconName={inputValues.iconName}
 										source={source}
+										onIconSelect={() => setIconPressed(!iconPressed)}
 									/>
 									{/* <div className={`card-item-icon card-item-icon-${source}`}>
 										<div className="card-item-icon-miscellaneous">
@@ -231,7 +231,9 @@ const PopUp = ({
 							)}
 						</div>
 					</div>
-					{iconPressed && <Icons source={source} />}
+					{iconPressed && (
+						<Icons source={source} onIconSelect={updateIconName} />
+					)}
 				</div>
 			</div>
 		</div>

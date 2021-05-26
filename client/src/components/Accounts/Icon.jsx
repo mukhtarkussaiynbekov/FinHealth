@@ -146,17 +146,17 @@ export const icons = {
 	FaWrench: <FaWrench />
 };
 
-const Icon = ({ source, key, title, icon }) => {
+const Icon = ({ source, iconName, onIconSelect }) => {
 	return (
 		<div
 			className={`card-item-icon card-item-icon-${source}`}
-			key={key}
-			title={title}
+			title={iconName}
+			onClick={onIconSelect}
 		>
 			<IconContext.Provider
 				value={{ size: '2em', color: 'white', className: 'card-icon' }}
 			>
-				{icons[icon]}
+				{icons[iconName]}
 			</IconContext.Provider>
 		</div>
 	);

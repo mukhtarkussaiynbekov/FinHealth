@@ -22,23 +22,19 @@ const Body = ({ source, setPopUpState, collection, currentUser }) => {
 					<div className="category-title" title={account.name}>
 						{account.name}
 					</div>
-					<div
-						className="category-icon-wrapper"
-						onClick={() =>
-							setPopUpState({
-								isAdd: false,
-								popUpSeen: true,
-								selectedIdx: idx,
-								source: source
-							})
-						}
-					>
+					<div className="category-icon-wrapper">
 						<div className="category-fill">
 							<Icon
-								key="FaCoins"
-								title="FaCoins"
-								icon="FaCoins"
+								iconName={account.iconName}
 								source={source}
+								onIconSelect={() =>
+									setPopUpState({
+										isAdd: false,
+										popUpSeen: true,
+										selectedIdx: idx,
+										source: source
+									})
+								}
 							/>
 						</div>
 					</div>
