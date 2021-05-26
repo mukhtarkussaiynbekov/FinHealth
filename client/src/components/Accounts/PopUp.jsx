@@ -10,17 +10,21 @@ import {
 	messages,
 	BALANCE,
 	BUDGET,
-	CHANGE_SOURCE,
 	ACCOUNT,
 	CATEGORY
 } from '../../constants';
 import { API_URL } from '../../services/auth.service';
-import { useSelector, useDispatch } from 'react-redux';
+import { updateStorage } from '../App';
 
-const PopUp = ({ toggle, source, isAdd, selectedIdx, collection }) => {
-	const currentUser = useSelector(state => state);
-	const dispatch = useDispatch();
-
+const PopUp = ({
+	toggle,
+	source,
+	isAdd,
+	selectedIdx,
+	collection,
+	currentUser,
+	authChanger
+}) => {
 	let selectedAccount =
 		selectedIdx !== -1 ? currentUser[collection][selectedIdx] : {};
 	const handleClick = event => {
@@ -47,7 +51,6 @@ const PopUp = ({ toggle, source, isAdd, selectedIdx, collection }) => {
 	const updateInputValues = event => {
 		let title = event.target.title;
 		let newValue = event.target.value;
-		console.log(newValue);
 		setInputValues({ ...inputValues, [title]: newValue });
 	};
 
@@ -78,10 +81,8 @@ const PopUp = ({ toggle, source, isAdd, selectedIdx, collection }) => {
 			axios
 				.post(API_URL + source, saveValues, { headers: authHeader() })
 				.then(response => {
-					dispatch({
-						type: CHANGE_SOURCE,
-						payload: { collection: collection, data: response.data.field }
-					});
+					updateStorage({ ...currentUser, [collection]: response.data.field });
+					authChanger();
 					toggle();
 				});
 		}
@@ -108,10 +109,8 @@ const PopUp = ({ toggle, source, isAdd, selectedIdx, collection }) => {
 
 			axios(config)
 				.then(response => {
-					dispatch({
-						type: CHANGE_SOURCE,
-						payload: { collection: collection, data: response.data.field }
-					});
+					updateStorage({ ...currentUser, [collection]: response.data.field });
+					authChanger();
 					toggle();
 				})
 				.catch(error => {
@@ -138,10 +137,8 @@ const PopUp = ({ toggle, source, isAdd, selectedIdx, collection }) => {
 
 		axios(config)
 			.then(response => {
-				dispatch({
-					type: CHANGE_SOURCE,
-					payload: { collection: collection, data: response.data.field }
-				});
+				updateStorage({ ...currentUser, [collection]: response.data.field });
+				authChanger();
 				toggle();
 			})
 			.catch(error => {

@@ -9,14 +9,28 @@ import Login from './Login';
 import Register from './Register';
 import Profile from './Profile';
 
-const ProtectedRoute = ({ component: Comp, currentUser, path, ...rest }) => {
+export const updateStorage = user => {
+	localStorage.setItem('user', JSON.stringify(user));
+};
+
+const ProtectedRoute = ({
+	component: Comp,
+	currentUser,
+	authChanger,
+	path,
+	...rest
+}) => {
 	return (
 		<Route
 			path={path}
 			{...rest}
 			render={props => {
 				return currentUser ? (
-					<Comp currentUser={currentUser} {...props} />
+					<Comp
+						currentUser={currentUser}
+						authChanger={authChanger}
+						{...props}
+					/>
 				) : (
 					<Redirect
 						to={{
@@ -89,6 +103,7 @@ const App = () => {
 						exact
 						path={['/', '/profile']}
 						component={Profile}
+						authChanger={authChanger}
 						currentUser={currentUser}
 					/>
 					<Route

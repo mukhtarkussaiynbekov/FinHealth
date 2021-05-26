@@ -23,9 +23,6 @@ export const messages = {
 	}
 };
 
-export const CHANGE_SOURCE = 'change_source';
-export const RESET = 'reset';
-
 export const SOURCE_TO_COLLECTION = {
 	[INCOME]: INCOME,
 	[ACCOUNT]: ACCOUNTS,

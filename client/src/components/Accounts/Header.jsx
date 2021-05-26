@@ -4,19 +4,15 @@ import {
 	CATEGORY,
 	HEADER,
 	INCOME,
-	messages,
-	RESET
+	messages
 } from '../../constants';
 import { formatter } from '../Profile';
 import { API_URL } from '../../services/auth.service';
 import axios from 'axios';
 import authHeader from '../../services/auth-header.js';
-import { useSelector, useDispatch } from 'react-redux';
+import { updateStorage } from '../App';
 
-const Header = ({ source, collection }) => {
-	const currentUser = useSelector(state => state);
-	const dispatch = useDispatch();
-
+const Header = ({ source, collection, currentUser, authChanger }) => {
 	const reducer = property => (accumulator, currentValue) =>
 		accumulator + currentValue[property];
 	let totalAccumulated = currentUser[collection]
@@ -35,13 +31,12 @@ const Header = ({ source, collection }) => {
 		axios
 			.post(API_URL + 'reset', {}, { headers: authHeader() })
 			.then(response => {
-				dispatch({
-					type: RESET,
-					payload: {
-						categories: response.data[CATEGORIES],
-						income: response.data[INCOME]
-					}
+				updateStorage({
+					...currentUser,
+					[CATEGORIES]: response.data[CATEGORIES],
+					[INCOME]: response.data[INCOME]
 				});
+				authChanger();
 			});
 	};
 

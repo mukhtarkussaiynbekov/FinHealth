@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
 	ACCOUNTS,
 	CATEGORIES,
@@ -10,7 +10,6 @@ import {
 import Accounts from './Accounts/Accounts';
 import Transactions from './Transactions/Transactions';
 import PopUp from './Accounts/PopUp';
-import { useDispatch, useSelector } from 'react-redux';
 
 // Create our number formatter.
 export const formatter = new Intl.NumberFormat('en-US', {
@@ -22,12 +21,7 @@ export const formatter = new Intl.NumberFormat('en-US', {
 	maximumFractionDigits: 0 // (causes 2500.99 to be printed as $2,501)
 });
 
-const Profile = () => {
-	const dispatch = useDispatch();
-	const currentUser = useSelector(state => state);
-	useEffect(() => {
-		dispatch({ type: '' });
-	});
+const Profile = ({ currentUser, authChanger }) => {
 	const [popUpState, setPopUpState] = useState({
 		popUpSeen: false,
 		isAdd: false,
@@ -42,39 +36,47 @@ const Profile = () => {
 	return (
 		<div className="data-container container-dashboard">
 			<div className="dashboard">
-				{currentUser && (
-					<div className="dashboard-body">
-						<div className="dashboard-column" style={{ minWidth: 540 }}>
-							<Accounts
-								source={INCOME}
-								collection={INCOME}
-								setPopUpState={setPopUpState}
+				{/* {currentUser && ( */}
+				<div className="dashboard-body">
+					<div className="dashboard-column" style={{ minWidth: 540 }}>
+						<Accounts
+							source={INCOME}
+							collection={INCOME}
+							setPopUpState={setPopUpState}
+							currentUser={currentUser}
+							authChanger={authChanger}
+						/>
+						<Accounts
+							source={ACCOUNT}
+							collection={ACCOUNTS}
+							setPopUpState={setPopUpState}
+							currentUser={currentUser}
+							authChanger={authChanger}
+						/>
+						<Accounts
+							source={CATEGORY}
+							collection={CATEGORIES}
+							setPopUpState={setPopUpState}
+							currentUser={currentUser}
+							authChanger={authChanger}
+						/>
+						{popUpState.popUpSeen && (
+							<PopUp
+								toggle={togglePop}
+								source={popUpState.source}
+								isAdd={popUpState.isAdd}
+								selectedIdx={popUpState.selectedIdx}
+								collection={SOURCE_TO_COLLECTION[popUpState.source]}
+								currentUser={currentUser}
+								authChanger={authChanger}
 							/>
-							<Accounts
-								source={ACCOUNT}
-								collection={ACCOUNTS}
-								setPopUpState={setPopUpState}
-							/>
-							<Accounts
-								source={CATEGORY}
-								collection={CATEGORIES}
-								setPopUpState={setPopUpState}
-							/>
-							{popUpState.popUpSeen && (
-								<PopUp
-									toggle={togglePop}
-									source={popUpState.source}
-									isAdd={popUpState.isAdd}
-									selectedIdx={popUpState.selectedIdx}
-									collection={SOURCE_TO_COLLECTION[popUpState.source]}
-								/>
-							)}
-						</div>
-						<div className="dashboard-column">
-							<Transactions />
-						</div>
+						)}
 					</div>
-				)}
+					<div className="dashboard-column">
+						<Transactions />
+					</div>
+				</div>
+				{/* )} */}
 			</div>
 		</div>
 	);

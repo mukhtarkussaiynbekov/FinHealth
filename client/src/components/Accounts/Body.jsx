@@ -4,13 +4,8 @@ import { BsPlusCircle } from 'react-icons/all';
 import { IconContext } from 'react-icons';
 import { CATEGORY, INCOME } from '../../constants';
 import { formatter } from '../Profile';
-import { useSelector } from 'react-redux';
 
-const Body = ({ source, setPopUpState, collection }) => {
-	const currentUser = useSelector(state => {
-		console.log(state);
-		return state;
-	});
+const Body = ({ source, setPopUpState, collection, currentUser }) => {
 	let accounts = currentUser[collection] ? currentUser[collection] : [];
 
 	// Create our number formatter.
