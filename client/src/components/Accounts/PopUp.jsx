@@ -94,6 +94,8 @@ const PopUp = ({
 
 	const onChange = () => {
 		let saveValues = getSaveValues();
+		let databaseUpdateValues = { ...selectedAccount, ...saveValues };
+		console.log(databaseUpdateValues);
 
 		// Currently it just adds new data
 		if (saveValues.name && !nameExists) {
@@ -107,7 +109,7 @@ const PopUp = ({
 				},
 				data: {
 					prevName: selectedAccount.name,
-					val: { selectedAccount, ...saveValues }
+					val: databaseUpdateValues
 				}
 			};
 
