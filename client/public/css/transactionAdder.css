@@ -74,3 +74,23 @@
 	background-repeat: no-repeat;
 	content: '';
 }
+
+.transaction-adder-focus {
+	position: fixed;
+	background-color: rgba(242, 242, 242, 0.8);
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 400;
+}
+
+.transaction-adder-focus + .add-transaction {
+	z-index: 401;
+}
+
+.add-transaction-steps-wrapper {
+	white-space: nowrap;
+	height: 100%;
+	margin-left: -5px;
+}

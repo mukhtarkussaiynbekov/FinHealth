@@ -28,6 +28,11 @@ const PopUp = ({
 	let selectedAccount =
 		selectedIdx !== -1 ? currentUser[collection][selectedIdx] : {};
 	const handleClick = event => {
+		let titleType = typeof event.target.title;
+		let classType = typeof event.target.className;
+		if (titleType !== 'string' || classType !== 'string') {
+			return;
+		}
 		setIsInputFocused(event.target.title === 'name');
 		if (event.target.className === 'popup-message') {
 			toggle();
