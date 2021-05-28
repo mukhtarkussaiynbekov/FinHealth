@@ -103,13 +103,3 @@
 .add-transaction-text {
 	margin: 0 5px;
 }
-
-.add-transaction input {
-	font-weight: 300;
-	min-height: 20px;
-	color: #757474;
-	font-size: inherit;
-	font-family: 'Roboto';
-	white-space: nowrap;
-	max-width: 200px;
-}

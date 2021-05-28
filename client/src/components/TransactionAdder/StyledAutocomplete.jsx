@@ -3,8 +3,9 @@ import { withStyles } from '@material-ui/core';
 
 const StyledAutocomplete = withStyles({
 	listbox: {
+		padding: '0',
 		position: 'absolute',
-		marginTop: '6px',
+		marginTop: '23px',
 		backgroundColor: '#fff',
 		borderRadius: '3px',
 		boxShadow: '0 0 14px 0 rgb(0 0 0 / 17%)',
@@ -26,13 +27,6 @@ const StyledAutocomplete = withStyles({
 			textOverflow: 'ellipsis'
 		},
 		'& li[data-focus="true"]': {
-			backgroundColor: '#989898',
-			color: '#fff',
-			textShadow: '0 0 8px rgb(0 0 0 / 26%)'
-		}
-	},
-	option: {
-		'&:first-child': {
 			backgroundColor: '#989898',
 			color: '#fff',
 			textShadow: '0 0 8px rgb(0 0 0 / 26%)'
