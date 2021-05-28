@@ -40,7 +40,7 @@
 .add-transaction-date,
 .add-transaction-debtor,
 .add-transaction-amount-component,
-.add-transaction .ck-autocomplete-wrapper {
+.add-transaction .autocomplete-wrapper {
 	display: inline-block;
 	vertical-align: middle;
 }
@@ -93,4 +93,23 @@
 	white-space: nowrap;
 	height: 100%;
 	margin-left: -5px;
+}
+
+.add-transaction-step {
+	white-space: nowrap;
+	height: 100%;
+}
+
+.add-transaction-text {
+	margin: 0 5px;
+}
+
+.add-transaction input {
+	font-weight: 300;
+	min-height: 20px;
+	color: #757474;
+	font-size: inherit;
+	font-family: 'Roboto';
+	white-space: nowrap;
+	max-width: 200px;
 }

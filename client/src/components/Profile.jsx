@@ -10,7 +10,7 @@ import {
 import Accounts from './Accounts/Accounts';
 import Transactions from './Transactions/Transactions';
 import PopUp from './Accounts/PopUp';
-import TransactionAdder from './TransactionAdder';
+import TransactionAdder from './TransactionAdder/TransactionAdder';
 
 // Create our number formatter.
 export const formatter = new Intl.NumberFormat('en-US', {
@@ -37,7 +37,13 @@ const Profile = ({ currentUser, authChanger }) => {
 	return (
 		<div className="data-container container-dashboard">
 			<div className="dashboard">
-				<TransactionAdder />
+				<TransactionAdder
+					incomeList={currentUser[INCOME] ? currentUser[INCOME] : []}
+					accountsList={currentUser[ACCOUNTS] ? currentUser[ACCOUNTS] : []}
+					categoriesList={
+						currentUser[CATEGORIES] ? currentUser[CATEGORIES] : []
+					}
+				/>
 				<div className="dashboard-body">
 					<div className="dashboard-column" style={{ minWidth: 540 }}>
 						<Accounts
