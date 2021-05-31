@@ -18,9 +18,9 @@ const db = require("./app/models/index.js");
 const dbConfig = require("./app/config/db.config.js");
 
 const Role = db.role;
-
+var uri = "mongodb+srv://batya:dSL3K1Ddr2axpoC1@cluster0.hpppx.mongodb.net/prod?retryWrites=true&w=majority";
 db.mongoose
-    .connect("mongodb+srv://batya:123123@cluster0.hpppx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority" || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+    .connect(uri || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
@@ -29,7 +29,8 @@ db.mongoose
         initializeRoles();
     })
     .catch(err => {
-        console.err("Couldn't connect to the Database", err);
+        console.log("Couldn't connect to the Database");
+        console.log(err);
         process.exit();
     });
 
