@@ -8,7 +8,7 @@ const Icons = ({ source, onIconSelect }) => {
 				{Object.keys(icons).map((iconName, index) => (
 					<Icon
 						source={source}
-						key={source + index.toString()}
+						key={index}
 						iconName={iconName}
 						onIconSelect={onIconSelect}
 					/>

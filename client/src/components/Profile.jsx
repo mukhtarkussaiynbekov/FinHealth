@@ -10,6 +10,7 @@ import {
 import Accounts from './Accounts/Accounts';
 import Transactions from './Transactions/Transactions';
 import PopUp from './Accounts/PopUp';
+import TransactionAdder from './TransactionAdder/TransactionAdder';
 
 // Create our number formatter.
 export const formatter = new Intl.NumberFormat('en-US', {
@@ -36,7 +37,13 @@ const Profile = ({ currentUser, authChanger }) => {
 	return (
 		<div className="data-container container-dashboard">
 			<div className="dashboard">
-				{/* {currentUser && ( */}
+				<TransactionAdder
+					incomeList={currentUser[INCOME] ? currentUser[INCOME] : []}
+					accountsList={currentUser[ACCOUNTS] ? currentUser[ACCOUNTS] : []}
+					categoriesList={
+						currentUser[CATEGORIES] ? currentUser[CATEGORIES] : []
+					}
+				/>
 				<div className="dashboard-body">
 					<div className="dashboard-column" style={{ minWidth: 540 }}>
 						<Accounts
@@ -45,6 +52,7 @@ const Profile = ({ currentUser, authChanger }) => {
 							setPopUpState={setPopUpState}
 							currentUser={currentUser}
 							authChanger={authChanger}
+							renderLimit={4}
 						/>
 						<Accounts
 							source={ACCOUNT}
@@ -52,6 +60,7 @@ const Profile = ({ currentUser, authChanger }) => {
 							setPopUpState={setPopUpState}
 							currentUser={currentUser}
 							authChanger={authChanger}
+							renderLimit={4}
 						/>
 						<Accounts
 							source={CATEGORY}
@@ -59,6 +68,7 @@ const Profile = ({ currentUser, authChanger }) => {
 							setPopUpState={setPopUpState}
 							currentUser={currentUser}
 							authChanger={authChanger}
+							renderLimit={8}
 						/>
 						{popUpState.popUpSeen && (
 							<PopUp
@@ -76,7 +86,6 @@ const Profile = ({ currentUser, authChanger }) => {
 						<Transactions />
 					</div>
 				</div>
-				{/* )} */}
 			</div>
 		</div>
 	);

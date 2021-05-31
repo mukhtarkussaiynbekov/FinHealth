@@ -12,19 +12,30 @@
 }
 
 body {
-	background-color: #efefec;
-	background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
-	padding: 0 16px;
 	font-family: 'Roboto', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 	font-weight: 400;
 	color: #64635f;
+}
+
+.page {
 	position: relative;
-	overflow: visible;
+	background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+	background-size: 400px;
+	background-color: #efefec;
+}
+
+.page-background {
+	background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+	background-color: #efefec;
+	position: fixed;
+	width: 100%;
 	height: 100%;
+	z-index: -1;
 }
 
 .data-container {
-	margin-top: 20px;
 	margin: auto;
 	max-width: 1280px;
 	display: flex;
@@ -61,12 +72,6 @@ body {
 	box-sizing: border-box;
 }
 
-@media (min-width: 600px) {
-	.container-dashboard {
-		padding: 30px 55px 90px;
-	}
-}
-
 @media (min-width: 992px) {
 	.data-container {
 		padding: 40px 55px;
@@ -77,5 +82,11 @@ body {
 	.data-container {
 		min-height: calc(100vh - 98px - 70px);
 		padding: 70px 35px;
+	}
+}
+
+@media (min-width: 600px) {
+	.container-dashboard {
+		padding: 30px 55px 90px;
 	}
 }

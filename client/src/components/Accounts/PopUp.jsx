@@ -28,6 +28,11 @@ const PopUp = ({
 	let selectedAccount =
 		selectedIdx !== -1 ? currentUser[collection][selectedIdx] : {};
 	const handleClick = event => {
+		let titleType = typeof event.target.title;
+		let classType = typeof event.target.className;
+		if (titleType !== 'string' || classType !== 'string') {
+			return;
+		}
 		setIsInputFocused(event.target.title === 'name');
 		if (event.target.className === 'popup-message') {
 			toggle();
@@ -201,13 +206,28 @@ const PopUp = ({
 											className="popup-input popup-input-number"
 											placeholder={`${messages[POPUP_AMOUNT][source]} *`}
 											title={source === ACCOUNT ? BALANCE : BUDGET}
-											type="number"
 											value={
 												source === ACCOUNT
 													? inputValues.balance
 													: inputValues.budget
 											}
-											onChange={updateInputValues}
+											onChange={event => {
+												let newAmount = event.target.value;
+												if (source === ACCOUNT && newAmount.match('^-?\\d*$')) {
+													setInputValues({
+														...inputValues,
+														[BALANCE]: newAmount
+													});
+												} else if (
+													source === CATEGORY &&
+													newAmount.match('^\\d*$')
+												) {
+													setInputValues({
+														...inputValues,
+														[BUDGET]: newAmount
+													});
+												}
+											}}
 										/>
 									</div>
 								</div>
