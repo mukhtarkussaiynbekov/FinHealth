@@ -1,6 +1,7 @@
 import React from 'react';
 import { RiDeleteBin5Fill, BiCalendarEvent } from 'react-icons/all';
 import { IconContext } from 'react-icons';
+import '../../css/transactions.css';
 
 const Transaction = () => {
 	return (

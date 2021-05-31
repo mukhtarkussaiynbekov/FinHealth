@@ -15,6 +15,8 @@ import {
 } from '../../constants';
 import { API_URL } from '../../services/auth.service';
 import { updateStorage } from '../App';
+import '../../css/popUp.css';
+import '../../css/icons.css';
 
 const PopUp = ({
 	toggle,

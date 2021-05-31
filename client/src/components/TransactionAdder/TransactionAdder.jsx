@@ -4,6 +4,7 @@ import { IconContext } from 'react-icons';
 import StyledAutocomplete from './StyledAutocomplete';
 import StyledTextField from './StyledTextField';
 import { AMOUNT } from '../../constants';
+import '../../css/transactionAdder.css';
 
 const useFocus = () => {
 	const htmlElRef = useRef(null);

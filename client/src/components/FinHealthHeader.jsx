@@ -1,6 +1,7 @@
 import React from 'react';
 import { MdMonetizationOn } from 'react-icons/all';
 import { IconContext } from 'react-icons';
+import '../css/header.css';
 
 const FinHealthHeader = ({ email, onLogOut }) => {
 	return (

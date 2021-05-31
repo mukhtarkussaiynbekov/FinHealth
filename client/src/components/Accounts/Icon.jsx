@@ -72,6 +72,7 @@ import {
 	FaWrench
 } from 'react-icons/all';
 import { IconContext } from 'react-icons';
+import '../../css/icons.css';
 
 export const icons = {
 	FaCoins: <FaCoins />,

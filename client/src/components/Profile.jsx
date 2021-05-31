@@ -11,6 +11,7 @@ import Accounts from './Accounts/Accounts';
 import Transactions from './Transactions/Transactions';
 import PopUp from './Accounts/PopUp';
 import TransactionAdder from './TransactionAdder/TransactionAdder';
+import '../css/styles.css';
 
 // Create our number formatter.
 export const formatter = new Intl.NumberFormat('en-US', {
