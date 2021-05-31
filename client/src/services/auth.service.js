@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const API_URL = 'https://finhealth2.herokuapp.com';
+export const API_URL = 'https://finhealth2.herokuapp.com/';
 
 class AuthService {
 	login(email, password) {
