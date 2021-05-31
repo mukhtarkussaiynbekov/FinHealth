@@ -107,7 +107,7 @@ const PopUp = ({
 			// Make call to the server to change existing data
 			var config = {
 				method: 'put',
-				url: `${API_URL}/${source}`,
+				url: API_URL + source,
 				headers: {
 					...authHeader(),
 					'Content-Type': 'application/json'
@@ -138,7 +138,7 @@ const PopUp = ({
 
 		var config = {
 			method: 'delete',
-			url: `${API_URL}/${source}`,
+			url: API_URL + source,,
 			headers: {
 				...authHeader(),
 				'Content-Type': 'application/json'
