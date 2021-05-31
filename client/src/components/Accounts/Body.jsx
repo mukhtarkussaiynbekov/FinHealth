@@ -4,7 +4,6 @@ import { BsPlusCircle } from 'react-icons/all';
 import { IconContext } from 'react-icons';
 import { CATEGORY, INCOME } from '../../constants';
 import { formatter } from '../Profile';
-import '../../css/accounts.css';
 
 // Create our number formatter.
 var numberFormatter = new Intl.NumberFormat('en-US', {

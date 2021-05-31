@@ -15,8 +15,6 @@ import {
 } from '../../constants';
 import { API_URL } from '../../services/auth.service';
 import { updateStorage } from '../App';
-import '../../css/popUp.css';
-import '../../css/icons.css';
 
 const PopUp = ({
 	toggle,
@@ -208,13 +206,28 @@ const PopUp = ({
 											className="popup-input popup-input-number"
 											placeholder={`${messages[POPUP_AMOUNT][source]} *`}
 											title={source === ACCOUNT ? BALANCE : BUDGET}
-											type="number"
 											value={
 												source === ACCOUNT
 													? inputValues.balance
 													: inputValues.budget
 											}
-											onChange={updateInputValues}
+											onChange={event => {
+												let newAmount = event.target.value;
+												if (source === ACCOUNT && newAmount.match('^-?\\d*$')) {
+													setInputValues({
+														...inputValues,
+														[BALANCE]: newAmount
+													});
+												} else if (
+													source === CATEGORY &&
+													newAmount.match('^\\d*$')
+												) {
+													setInputValues({
+														...inputValues,
+														[BUDGET]: newAmount
+													});
+												}
+											}}
 										/>
 									</div>
 								</div>

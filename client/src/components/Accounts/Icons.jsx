@@ -1,7 +1,5 @@
 import React from 'react';
 import Icon, { icons } from './Icon';
-import '../../css/popUp.css';
-import '../../css/icons.css';
 
 const Icons = ({ source, onIconSelect }) => {
 	return (

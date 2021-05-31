@@ -11,7 +11,6 @@ import { API_URL } from '../../services/auth.service';
 import axios from 'axios';
 import authHeader from '../../services/auth-header.js';
 import { updateStorage } from '../App';
-import '../../css/accounts.css';
 
 const Header = ({ source, collection, currentUser, authChanger }) => {
 	const reducer = property => (accumulator, currentValue) =>

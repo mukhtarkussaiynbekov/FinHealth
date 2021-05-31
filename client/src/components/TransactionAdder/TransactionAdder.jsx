@@ -4,7 +4,6 @@ import { IconContext } from 'react-icons';
 import StyledAutocomplete from './StyledAutocomplete';
 import StyledTextField from './StyledTextField';
 import { AMOUNT } from '../../constants';
-import '../../css/transactionAdder.css';
 
 const useFocus = () => {
 	const htmlElRef = useRef(null);
@@ -40,6 +39,9 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 	const [to, setTo] = useState('');
 	const [toOption, setToOption] = useState(null);
 	const [toOptionSelected, setToOptionSelected] = useState(false);
+
+	// Input money
+	const [money, setMoney] = useState('');
 
 	const handleClick = event => {
 		let targetClass = event.target.className;
@@ -157,7 +159,12 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 										<input
 											className="add-transaction-money-input"
 											placeholder="100000"
-											type="number"
+											value={money}
+											onChange={event => {
+												let newAmount = event.target.value;
+												if (newAmount.match('^\\d*$'))
+													setMoney(event.target.value);
+											}}
 										/>
 									</div>
 								</div>
