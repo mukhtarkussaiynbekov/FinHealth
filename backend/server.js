@@ -20,7 +20,7 @@ const dbConfig = require("./app/config/db.config.js");
 const Role = db.role;
 
 db.mongoose
-    .connect(process.env.MONGODB_URI || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+    .connect("mongodb+srv://batya:123123@cluster0.hpppx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority" || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
