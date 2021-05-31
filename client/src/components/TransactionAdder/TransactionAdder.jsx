@@ -42,6 +42,7 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 
 	// Input money
 	const [money, setMoney] = useState('');
+	const [moneySelected, setMoneySelected] = useState(false);
 
 	const handleClick = event => {
 		let targetClass = event.target.className;
@@ -157,8 +158,11 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 									<span className="ck-add-transaction-money-sign">₩</span>
 									<div className="add-transaction-amount-component">
 										<input
+											disabled={moneySelected}
 											className="add-transaction-money-input"
 											placeholder="100000"
+											autoFocus
+											ref={inputRef}
 											value={money}
 											onChange={event => {
 												let newAmount = event.target.value;
