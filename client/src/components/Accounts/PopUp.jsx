@@ -138,7 +138,7 @@ const PopUp = ({
 
 		var config = {
 			method: 'delete',
-			url: API_URL + source,,
+			url: API_URL + source,
 			headers: {
 				...authHeader(),
 				'Content-Type': 'application/json'
