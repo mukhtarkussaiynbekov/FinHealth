@@ -27,6 +27,20 @@
 	font-weight: 300;
 }
 
+.add-transaction-tooltip {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.onboarding-tooltip {
+	position: relative;
+	overflow: visible;
+}
+
+.add-transaction-amount {
+	margin-left: 5px;
+}
+
 .add-transaction-text {
 	margin: 0 5px;
 }
@@ -100,6 +114,6 @@
 	height: 100%;
 }
 
-.add-transaction-text {
-	margin: 0 5px;
+.add-transaction-money-input {
+	margin-left: 3px;
 }

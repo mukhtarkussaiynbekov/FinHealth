@@ -73,7 +73,7 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 						</span>
 					) : (
 						<div className="add-transaction-steps-wrapper">
-							<div className="add-transaction-step">
+							<div className="add-transaction-step add-transaction-tooltip onboarding-tooltip">
 								<span className="add-transaction-text">from</span>
 								<div className="autocomplete-wrapper">
 									<StyledAutocomplete
@@ -114,7 +114,7 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 								</div>
 							</div>
 							{fromOptionSelected && (
-								<div className="add-transaction-step">
+								<div className="add-transaction-step add-transaction-tooltip onboarding-tooltip">
 									<span className="add-transaction-text">to</span>
 									<div className="autocomplete-wrapper">
 										<StyledAutocomplete
@@ -146,6 +146,18 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 													/>
 												</div>
 											)}
+										/>
+									</div>
+								</div>
+							)}
+							{toOptionSelected && (
+								<div className="add-transaction-step add-transaction-tooltip onboarding-tooltip add-transaction-amount">
+									<span className="ck-add-transaction-money-sign">₩</span>
+									<div className="add-transaction-amount-component">
+										<input
+											className="add-transaction-money-input"
+											placeholder="100000"
+											type="number"
 										/>
 									</div>
 								</div>
