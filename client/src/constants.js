@@ -9,6 +9,9 @@ export const POPUP_AMOUNT = 'popup_amount';
 export const BALANCE = 'balance';
 export const AMOUNT = 'amount';
 export const BUDGET = 'budget';
+export const TRANSACTION = 'transaction';
+export const DATE = 'date';
+export const TAG = 'tag';
 
 export const messages = {
 	[HEADER]: { [INCOME]: 'received', [ACCOUNT]: 'balance', [CATEGORY]: 'spent' },
