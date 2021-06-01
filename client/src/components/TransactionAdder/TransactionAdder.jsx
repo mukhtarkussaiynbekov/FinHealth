@@ -1,9 +1,19 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
+import axios from 'axios';
+import { API_URL } from '../../services/auth.service';
+import authHeader from '../../services/auth-header.js';
 import { IoAddOutline } from 'react-icons/all';
 import { IconContext } from 'react-icons';
 import StyledAutocomplete from './StyledAutocomplete';
 import StyledTextField from './StyledTextField';
-import { AMOUNT } from '../../constants';
+import {
+	AMOUNT,
+	TRANSACTION,
+	CATEGORY,
+	ACCOUNT,
+	DATE,
+	TAG
+} from '../../constants';
 import StyledDatePicker from './StyledDatePicker';
 import moment from 'moment';
 
@@ -75,7 +85,39 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 		dateSelected
 	]);
 
-	const postTransaction = () => {};
+	const cleanUp = () => {
+		setInputSelected(false);
+		setFromOption(null);
+		setToOption(null);
+		setFromOptionSelected(false);
+		setToOptionSelected(false);
+		setMoneySelected(false);
+		setDateSelected(false);
+		setFrom('');
+		setTo('');
+		setMoney('');
+		setDate(moment());
+	};
+
+	const postTransaction = () => {
+		let transaction = {
+			[DATE]: date.format('yyyy-MM-DD'),
+			[TRANSACTION]: parseInt(money),
+			[ACCOUNT]: from,
+			[CATEGORY]: to,
+			[TAG]: comment
+		};
+
+		// Make call to the server to add new data
+		axios
+			.post(API_URL + TRANSACTION, transaction, { headers: authHeader() })
+			.then(response => {
+				console.log(response);
+				cleanUp();
+				// updateStorage({ ...currentUser, [collection]: response.data.field });
+			})
+			.catch(err => console.log(err));
+	};
 
 	const handleClick = event => {
 		let targetClass = event.target.className;
@@ -89,16 +131,7 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 
 		if (targetClass.includes('transaction-adder-focus')) {
 			setInputSelected(false);
-			setFromOption(null);
-			setToOption(null);
-			setFromOptionSelected(false);
-			setToOptionSelected(false);
-			setMoneySelected(false);
-			setDateSelected(false);
-			setFrom('');
-			setTo('');
-			setMoney('');
-			setDate(new Date());
+			cleanUp();
 		} else if (currentTargetClass.includes('dashboard-top')) {
 			setInputSelected(true);
 			setFromFocus();
@@ -123,7 +156,7 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 			}
 		} else if (key === 'Enter') {
 			if (dateSelected) {
-				// TODO: post transaction to database
+				postTransaction();
 			} else if (moneySelected) {
 				setDateSelected(true);
 			} else if (money !== '') {
