@@ -1,7 +1,9 @@
+const mongoose = require("mongoose");
 const db = require("../models/index.js");
 const User = db.user;
 const Role = db.role
 const Transaction = db.transaction;
+const ObjectId = mongoose.Types.ObjectId;
 
 const createTransaction = async (req, res) => {
     const date = new Date(req.body.date);
@@ -165,7 +167,7 @@ const getAllTransactions = (req, res) => {
     const from = req.query.from;
     const to = req.query.to
     let condition = {};
-    condition.owner = req.userId;
+    condition.owner = ObjectId(req.userId);
     if (ctg) {
         condition.category = ctg;
     }
@@ -184,13 +186,7 @@ const getAllTransactions = (req, res) => {
     if (Object.keys(condition.date).length == 0) {
         delete condition.date;
     }
-    Transaction.find(
-        condition,
-        {
-            owner: 0,
-            __v: 0
-        }   
-    ).sort({ date: 1 }).limit(count).exec((err, transactions) => {
+    Transaction.aggregate([{ $match: condition }, { $sort: { date: -1 } }, { $limit: count }, { $project: { owner: 0, __v: 0 } }, { $group: { _id: "$date", transactions: { $push: "$$ROOT" } } }]).exec((err, transactions) => {
         if (err) {
             res.status(500).send({ message: err });
             return;
