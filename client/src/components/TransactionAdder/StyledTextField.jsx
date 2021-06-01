@@ -10,9 +10,8 @@ const StyledTextField = withStyles({
 		fontFamily: 'Roboto',
 		whiteSpace: 'nowrap',
 		maxWidth: '200px',
-		flexDirection: 'column',
-		display: 'flex',
-		alignSelf: 'flex-end'
+		display: 'inline-block',
+		verticalAlign: 'middle'
 	}
 })(TextField);
 

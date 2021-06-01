@@ -5,7 +5,7 @@ const StyledAutocomplete = withStyles({
 	listbox: {
 		padding: '0',
 		position: 'absolute',
-		marginTop: '23px',
+		marginTop: '6px',
 		backgroundColor: '#fff',
 		borderRadius: '3px',
 		boxShadow: '0 0 14px 0 rgb(0 0 0 / 17%)',

@@ -1,9 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { IoAddOutline } from 'react-icons/all';
 import { IconContext } from 'react-icons';
 import StyledAutocomplete from './StyledAutocomplete';
 import StyledTextField from './StyledTextField';
 import { AMOUNT } from '../../constants';
+import StyledDatePicker from './StyledDatePicker';
+import moment from 'moment';
 
 const useFocus = () => {
 	const htmlElRef = useRef(null);
@@ -21,28 +23,59 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 		);
 		return optionsContainingInput.length > 0 ? optionsContainingInput[0] : null;
 	};
-	const [inputRef, setInputFocus] = useFocus();
 
 	const isIncome = account => {
 		return AMOUNT in account;
 	};
 
-	// Selecting source account
+	// Format today
+	const today = moment();
+	const todayFormatted = today.format('DD.MM.yyyy');
+
+	// Select source account
 	const fromList = incomeList.concat(accountsList);
 	const [inputSelected, setInputSelected] = useState(false);
 	const [from, setFrom] = useState('');
 	const [fromOption, setFromOption] = useState(null);
 	const [fromOptionSelected, setFromOptionSelected] = useState(false);
+	const [fromRef, setFromFocus] = useFocus();
 
-	// Selecting destination account
+	// Select destination account
 	const [toList, setToList] = useState([]);
 	const [to, setTo] = useState('');
 	const [toOption, setToOption] = useState(null);
 	const [toOptionSelected, setToOptionSelected] = useState(false);
+	const [toRef, setToFocus] = useFocus();
 
 	// Input money
 	const [money, setMoney] = useState('');
 	const [moneySelected, setMoneySelected] = useState(false);
+	const [moneyRef, setMoneyFocus] = useFocus();
+
+	// Select date
+	const [dateSelected, setDateSelected] = useState(false);
+	const [date, setDate] = useState(moment());
+	const [dateRef, setDateFocus] = useFocus();
+
+	// Write comments
+	const [comment, setComment] = useState('');
+	const [commentRef, setCommentFocus] = useFocus();
+
+	useLayoutEffect(() => {
+		setFromFocus();
+		setToFocus();
+		setMoneyFocus();
+		setDateFocus();
+		setCommentFocus();
+	}, [
+		inputSelected,
+		fromOptionSelected,
+		toOptionSelected,
+		moneySelected,
+		dateSelected
+	]);
+
+	const postTransaction = () => {};
 
 	const handleClick = event => {
 		let targetClass = event.target.className;
@@ -60,19 +93,57 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 			setToOption(null);
 			setFromOptionSelected(false);
 			setToOptionSelected(false);
+			setMoneySelected(false);
+			setDateSelected(false);
+			setFrom('');
+			setTo('');
+			setMoney('');
+			setDate(new Date());
 		} else if (currentTargetClass.includes('dashboard-top')) {
 			setInputSelected(true);
-			setInputFocus();
+			setFromFocus();
+			setToFocus();
+			setMoneyFocus();
+			setDateFocus();
+			setCommentFocus();
 		}
 	};
+
+	const handleActionKey = event => {
+		const { key } = event;
+		if (key === 'Backspace' || key === 'Delete') {
+			if (dateSelected && comment === '') {
+				setDateSelected(false);
+			} else if (moneySelected && !dateSelected) {
+				setMoneySelected(false);
+			} else if (toOptionSelected && money === '') {
+				setToOptionSelected(false);
+			} else if (fromOptionSelected && to === '') {
+				setFromOptionSelected(false);
+			}
+		} else if (key === 'Enter') {
+			if (dateSelected) {
+				// TODO: post transaction to database
+			} else if (moneySelected) {
+				setDateSelected(true);
+			} else if (money !== '') {
+				setMoneySelected(true);
+			}
+		}
+	};
+
 	return (
-		<div className="dashboard-top" onClick={handleClick}>
+		<div
+			className="dashboard-top"
+			onClick={handleClick}
+			onKeyDown={handleActionKey}
+		>
 			<div className="add-transaction-wrapper">
 				{inputSelected && <div className="transaction-adder-focus"></div>}
 				<div className="add-transaction">
 					{!inputSelected ? (
 						<span className="add-transaction-text add-transaction-placeholder">
-							from Wallet to Shopping ₩100,000 05/27/2021 #tag comment
+							from Wallet to Shopping ₩100,000 {todayFormatted} comment
 						</span>
 					) : (
 						<div className="add-transaction-steps-wrapper">
@@ -83,11 +154,13 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 										id="from"
 										options={fromList}
 										getOptionLabel={option => option.name}
+										inputValue={from}
 										value={getTopMatchingValue(fromList, from)}
 										open={!fromOptionSelected}
 										disabled={fromOptionSelected}
 										onClose={(event, reason) => {
 											if (reason === 'select-option') {
+												setFrom(fromOption.name);
 												setFromOptionSelected(true);
 												if (isIncome(fromOption)) {
 													setToList(accountsList);
@@ -96,7 +169,6 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 												}
 											}
 										}}
-										inputValue={fromOptionSelected ? fromOption.name : from}
 										onHighlightChange={(event, newOption) =>
 											setFromOption(newOption)
 										}
@@ -107,7 +179,7 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 													type="text"
 													placeholder="Wallet"
 													onChange={event => setFrom(event.target.value)}
-													inputRef={inputRef}
+													inputRef={fromRef}
 													autoFocus
 													InputProps={{ disableUnderline: true }}
 												/>
@@ -129,10 +201,11 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 											disabled={toOptionSelected}
 											onClose={(event, reason) => {
 												if (reason === 'select-option') {
+													setTo(toOption.name);
 													setToOptionSelected(true);
 												}
 											}}
-											inputValue={toOptionSelected ? toOption.name : to}
+											inputValue={to}
 											onHighlightChange={(event, newOption) =>
 												setToOption(newOption)
 											}
@@ -143,7 +216,7 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 														type="text"
 														placeholder="Shopping"
 														onChange={event => setTo(event.target.value)}
-														inputRef={inputRef}
+														inputRef={toRef}
 														autoFocus
 														InputProps={{ disableUnderline: true }}
 													/>
@@ -157,12 +230,13 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 								<div className="add-transaction-step add-transaction-tooltip onboarding-tooltip add-transaction-amount">
 									<span className="ck-add-transaction-money-sign">₩</span>
 									<div className="add-transaction-amount-component">
-										<input
+										<StyledTextField
 											disabled={moneySelected}
-											className="add-transaction-money-input"
+											style={{ marginLeft: '3px' }}
 											placeholder="100000"
 											autoFocus
-											ref={inputRef}
+											InputProps={{ disableUnderline: true }}
+											inputRef={moneyRef}
 											value={money}
 											onChange={event => {
 												let newAmount = event.target.value;
@@ -173,10 +247,35 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 									</div>
 								</div>
 							)}
+							{moneySelected && (
+								<StyledDatePicker
+									format="dd.MM.yyyy"
+									value={date}
+									onChange={setDate}
+									InputProps={{ disableUnderline: dateSelected }}
+									disabled={dateSelected}
+									inputRef={dateRef}
+								/>
+							)}
+							{dateSelected && (
+								<StyledTextField
+									type="text"
+									placeholder="comment"
+									onChange={event => setComment(event.target.value)}
+									inputRef={commentRef}
+									autoFocus
+									InputProps={{ disableUnderline: true }}
+									className=""
+								/>
+							)}
 						</div>
 					)}
 
-					<button disabled className="add-transaction-submit">
+					<button
+						disabled={!dateSelected}
+						className="add-transaction-submit"
+						onClick={postTransaction}
+					>
 						<IconContext.Provider
 							value={{
 								size: '2.5em',
