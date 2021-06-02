@@ -1,8 +1,22 @@
 import React from 'react';
 import { RiDeleteBin5Fill, BiCalendarEvent } from 'react-icons/all';
 import { IconContext } from 'react-icons';
+import axios from 'axios';
+import { API_URL } from '../../services/auth.service';
+import authHeader from '../../services/auth-header.js';
+import { TRANSACTION } from '../../constants';
 
 const Transaction = () => {
+	const getAllTransactions = () => {
+		// Make call to the server to get transactions
+		axios
+			.get(API_URL + TRANSACTION, { headers: authHeader() })
+			.then(response => {
+				console.log(response);
+			})
+			.catch(err => console.log(err));
+	};
+	getAllTransactions();
 	return (
 		<div className="feed">
 			<div className="day-slice">

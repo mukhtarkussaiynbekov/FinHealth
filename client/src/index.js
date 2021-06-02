@@ -4,7 +4,6 @@ import App from './components/App';
 import { BrowserRouter } from 'react-router-dom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
-import DateFnsUtils from '@date-io/date-fns';
 import './css/styles.css';
 import './css/header.css';
 import './css/transactions.css';
@@ -15,7 +14,7 @@ import './css/accounts.css';
 
 ReactDOM.render(
 	<BrowserRouter>
-		<MuiPickersUtilsProvider utils={DateFnsUtils}>
+		<MuiPickersUtilsProvider utils={MomentUtils}>
 			<App />
 		</MuiPickersUtilsProvider>
 	</BrowserRouter>,

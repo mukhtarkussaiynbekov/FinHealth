@@ -42,7 +42,7 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 
 	// Format today
 	const today = moment();
-	const todayFormatted = today.format('DD.MM.yyyy');
+	const todayFormatted = today.format('DD.MM.YYYY');
 
 	// Select source account
 	const fromList = incomeList.concat(accountsList);
@@ -102,7 +102,7 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 
 	const postTransaction = () => {
 		let transaction = {
-			[DATE]: date.format('yyyy-MM-DD'),
+			[DATE]: date.format('YYYY-MM-DD'),
 			[TRANSACTION]: parseInt(money),
 			[ACCOUNT]: from,
 			[CATEGORY]: to,
@@ -291,12 +291,15 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 							)}
 							{moneySelected && (
 								<StyledDatePicker
-									format="dd.MM.yyyy"
+									format="DD.MM.YYYY"
 									value={date}
 									onChange={setDate}
 									InputProps={{ disableUnderline: dateSelected }}
 									disabled={dateSelected}
 									inputRef={dateRef}
+									autoOk={true}
+									okLabel=""
+									cancelLabel=""
 								/>
 							)}
 							{dateSelected && (
