@@ -92,8 +92,9 @@ const PopUp = ({
 				.then(response => {
 					updateStorage({ ...currentUser, [collection]: response.data.field });
 					authChanger();
-					toggle();
-				});
+				})
+				.catch(err => console.log(err));
+			toggle();
 		}
 	};
 
@@ -122,11 +123,11 @@ const PopUp = ({
 				.then(response => {
 					updateStorage({ ...currentUser, [collection]: response.data.field });
 					authChanger();
-					toggle();
 				})
 				.catch(error => {
 					console.log(error);
 				});
+			toggle();
 		}
 	};
 
@@ -150,11 +151,11 @@ const PopUp = ({
 			.then(response => {
 				updateStorage({ ...currentUser, [collection]: response.data.field });
 				authChanger();
-				toggle();
 			})
 			.catch(error => {
 				console.log(error);
 			});
+		toggle();
 	};
 
 	return (

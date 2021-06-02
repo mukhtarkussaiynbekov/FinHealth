@@ -38,13 +38,14 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 		return AMOUNT in account;
 	};
 
+	const [inputSelected, setInputSelected] = useState(false);
+
 	// Format today
 	const today = moment();
 	const todayFormatted = today.format('DD.MM.yyyy');
 
 	// Select source account
 	const fromList = incomeList.concat(accountsList);
-	const [inputSelected, setInputSelected] = useState(false);
 	const [from, setFrom] = useState('');
 	const [fromOption, setFromOption] = useState(null);
 	const [fromOptionSelected, setFromOptionSelected] = useState(false);
@@ -113,10 +114,9 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 			.post(API_URL + TRANSACTION, transaction, { headers: authHeader() })
 			.then(response => {
 				console.log(response);
-				cleanUp();
-				// updateStorage({ ...currentUser, [collection]: response.data.field });
 			})
 			.catch(err => console.log(err));
+		cleanUp();
 	};
 
 	const handleClick = event => {
@@ -131,7 +131,6 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 
 		if (targetClass.includes('transaction-adder-focus')) {
 			setInputSelected(false);
-			cleanUp();
 		} else if (currentTargetClass.includes('dashboard-top')) {
 			setInputSelected(true);
 			setFromFocus();
@@ -142,17 +141,27 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 		}
 	};
 
+	const moveCursorToStart = inputRef => {
+		if (inputRef.current) {
+			inputRef.current.setSelectionRange(0, 0);
+		}
+	};
+
 	const handleActionKey = event => {
 		const { key } = event;
 		if (key === 'Backspace' || key === 'Delete') {
 			if (dateSelected && comment === '') {
 				setDateSelected(false);
+				moveCursorToStart(dateRef);
 			} else if (moneySelected && !dateSelected) {
 				setMoneySelected(false);
+				moveCursorToStart(moneyRef);
 			} else if (toOptionSelected && money === '') {
 				setToOptionSelected(false);
+				moveCursorToStart(toRef);
 			} else if (fromOptionSelected && to === '') {
 				setFromOptionSelected(false);
+				moveCursorToStart(fromRef);
 			}
 		} else if (key === 'Enter') {
 			if (dateSelected) {
@@ -273,7 +282,7 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 											value={money}
 											onChange={event => {
 												let newAmount = event.target.value;
-												if (newAmount.match('^\\d*$'))
+												if (newAmount === '' || newAmount.match('^[1-9]\\d*$'))
 													setMoney(event.target.value);
 											}}
 										/>
@@ -294,6 +303,7 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 								<StyledTextField
 									type="text"
 									placeholder="comment"
+									value={comment}
 									onChange={event => setComment(event.target.value)}
 									inputRef={commentRef}
 									autoFocus
