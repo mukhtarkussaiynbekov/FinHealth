@@ -1,76 +1,75 @@
-import React from 'react';
-import { RiDeleteBin5Fill, BiCalendarEvent } from 'react-icons/all';
-import { IconContext } from 'react-icons';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../services/auth.service';
 import authHeader from '../../services/auth-header.js';
 import { TRANSACTION } from '../../constants';
+import Transaction from './Transaction';
+import moment from 'moment';
 
-const Transaction = () => {
+const Transactions = ({ currentUser, authChanger }) => {
+	const [transactions, setTransactions] = useState([]);
 	const getAllTransactions = () => {
 		// Make call to the server to get transactions
 		axios
 			.get(API_URL + TRANSACTION, { headers: authHeader() })
 			.then(response => {
-				console.log(response);
+				let dateTransactions = [...response.data];
+				dateTransactions.sort(
+					(earlierDateTransactions, laterDateTransactions) => {
+						// later date transactions must come first to show recent ones first
+						return earlierDateTransactions._id < laterDateTransactions._id
+							? 1
+							: -1;
+					}
+				);
+				setTransactions(dateTransactions);
 			})
 			.catch(err => console.log(err));
 	};
-	getAllTransactions();
+	useEffect(() => getAllTransactions(), [currentUser]);
 	return (
 		<div className="feed">
-			<div className="day-slice">
-				<div className="day-slice-date">
-					<span className="day-slice-week-day">Today, </span>2 March
-				</div>
-				<div className="day-slice-body">
-					<div className="day-slice-transactions">
-						<div className="transaction transaction-type-negative">
-							<div className="transaction-body">
-								<div className="transaction-categories">
-									<div className="transaction-source">Bank account</div>
-									<div className="transaction-destination">Food</div>
-								</div>
-								<div className="transaction-data">
-									<div className="transaction-amount">-4,700</div>
-									<div className="license-locker">
-										<div className="transaction-tags-wrapper transaction-tags-wrapper-no-hide">
-											#Mejom
-										</div>
-										<div className="transaction-comment">Add comment</div>
-									</div>
-								</div>
-							</div>
-							<div className="transaction-edit">
-								<IconContext.Provider
-									value={{
-										size: '1em'
-									}}
-								>
-									<div className="transaction-delete">
-										<RiDeleteBin5Fill />
-									</div>
-									<div className="transaction-calendar">
-										<BiCalendarEvent />
-									</div>
-								</IconContext.Provider>
-							</div>
+			{transactions.map(daySlice => {
+				let date = moment(daySlice._id);
+				let dayOfWeek = date.format('dddd');
+				let formattedDate = date.format('D MMMM');
+				const dayTransactions = [...daySlice.transactions].reverse();
+				const dayTotal = dayTransactions.reduce(
+					(acc, transaction) => acc + transaction.transaction,
+					0
+				);
+				const totalSign = dayTotal >= 0 ? 'positive' : 'negative';
+				return (
+					<div className="day-slice" key={date}>
+						<div className="day-slice-date">
+							<span className="day-slice-week-day">{dayOfWeek}, </span>
+							{formattedDate}
 						</div>
-					</div>
-					<div className="day-slice-footer day-slice-footer-positive">
-						<div className="day-slice-balance">
+						<div className="day-slice-body">
+							<div className="day-slice-transactions">
+								{dayTransactions.map(transaction => (
+									<Transaction
+										key={transaction._id}
+										transaction={transaction}
+									/>
+								))}
+							</div>
+							<div className={`day-slice-footer day-slice-footer-${totalSign}`}>
+								{/* <div className="day-slice-balance">
 							<div className="day-slice-footer-value">582,022</div>
 							<div className="day-slice-footer-title">balance</div>
-						</div>
-						<div className="day-slice-total">
-							<div className="day-slice-footer-value">2,080</div>
-							<div className="day-slice-footer-title">total</div>
+						</div> */}
+								<div className="day-slice-total">
+									<div className="day-slice-footer-value">{dayTotal}</div>
+									<div className="day-slice-footer-title">total</div>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+				);
+			})}
 		</div>
 	);
 };
 
-export default Transaction;
+export default Transactions;

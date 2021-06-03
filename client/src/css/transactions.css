@@ -170,7 +170,7 @@
 .day-slice-footer {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: flex-start;
 	min-height: 80px;
 	padding: 20px 20px 20px 50px;

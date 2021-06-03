@@ -26,7 +26,12 @@ const useFocus = () => {
 	return [htmlElRef, setFocus];
 };
 
-const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
+const TransactionAdder = ({
+	incomeList,
+	accountsList,
+	categoriesList,
+	authChanger
+}) => {
 	const getTopMatchingValue = (options, input) => {
 		let optionsContainingInput = options.filter(option =>
 			option.name.includes(input)
@@ -114,6 +119,7 @@ const TransactionAdder = ({ incomeList, accountsList, categoriesList }) => {
 			.post(API_URL + TRANSACTION, transaction, { headers: authHeader() })
 			.then(response => {
 				console.log(response);
+				authChanger();
 			})
 			.catch(err => console.log(err));
 		cleanUp();

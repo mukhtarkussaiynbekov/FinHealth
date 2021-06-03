@@ -43,6 +43,7 @@ const Profile = ({ currentUser, authChanger }) => {
 					categoriesList={
 						currentUser[CATEGORIES] ? currentUser[CATEGORIES] : []
 					}
+					authChanger={authChanger}
 				/>
 				<div className="dashboard-body">
 					<div className="dashboard-column" style={{ minWidth: 540 }}>
@@ -83,7 +84,7 @@ const Profile = ({ currentUser, authChanger }) => {
 						)}
 					</div>
 					<div className="dashboard-column">
-						<Transactions />
+						<Transactions currentUser={currentUser} authChanger={authChanger} />
 					</div>
 				</div>
 			</div>
