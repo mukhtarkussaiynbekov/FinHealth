@@ -1,7 +1,14 @@
 # FinHealth
 
-We are currently working on the project. Once we are done, link to the final product will be provided. Below are screenshots of our current web site.
+Check the website <a href="https://finhealth.netlify.app">FinHealth</a>.
 
-![Homepage](/assets/homepage.png)
+The app is intended to help people to track their expenses and income, thus maintaining financial health.
 
-![Pop Up](/assets/add_pop_up.png)
+## Demo
+
+![Demo](/assets/FinHealth.gif)
+
+## Tools
+
+* Front-end: React.js, Material-UI
+* Back-end: Node.js, MongoDB
